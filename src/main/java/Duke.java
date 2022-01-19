@@ -3,23 +3,21 @@ public class Duke {
     public static void main(String[] args) {
         String[] inputStore = new String[100];
         String input;
-        int index = 1;
-        // System.in.read() read one byte in the input stream
-        // System.in() returns an input stream
-        System.out.println("Hello! I'm Duke");
-        System.out.println("What can I do for you?");
+        int index = 0;
+
+        hello();
+
         Scanner chatInput = new Scanner( System.in );
 
         input = chatInput.nextLine();
         while (!input.equals("bye")) {
             if (input.equals("list")) {
-                for (int i = 1; i < index; i++ ) {
-                    System.out.println(i + "." + " " + inputStore[i]);
+                for (int i = 0; i < index; i++ ) {
+                    System.out.println((i + 1) + ". " + inputStore[i]);
                 }
                 input = chatInput.nextLine();
-            }
-            if (input.equals("bye")) {
-                break;
+                // move to next iteration
+                continue;
             }
             inputStore[index++] = input;
             System.out.println("added: " + input);
@@ -28,5 +26,10 @@ public class Duke {
 
         System.out.print("Bye. Hope to see you again soon!");
         chatInput.close();
+    }
+
+    public static void hello() {
+        System.out.println("Hello! I'm Duke");
+        System.out.println("What can I do for you?");
     }
 }
