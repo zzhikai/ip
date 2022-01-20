@@ -1,6 +1,6 @@
 import java.util.Scanner;
 public class Duke {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws DukeException {
         // Array of Task instead, each task has its state and behaviour
         Task[] inputStore = new Task[100];
         String input;
@@ -13,66 +13,103 @@ public class Duke {
         // commands: todo, deadline, event
 
         input = chatInput.nextLine();
+
         while (!input.equals("bye")) {
-            if (input.equals("list")) {
-                for (int i = 0; i < index; i++ ) {
-                    // System.out.println((i + 1) + ". "+ "[" + inputStore[i].getStatusIcon() + "] "  + inputStore[i].description);
-                    System.out.println((i + 1) + "."+ inputStore[i].toString());
+            try {
+                if (input.equals("list")) {
+                    for (int i = 0; i < index; i++) {
+                        // System.out.println((i + 1) + ". "+ "[" + inputStore[i].getStatusIcon() + "] "  + inputStore[i].description);
+                        System.out.println((i + 1) + "." + inputStore[i].toString());
+                    }
+                    input = chatInput.nextLine();
+                    // move to next iteration
+                    continue;
                 }
-                input = chatInput.nextLine();
-                // move to next iteration
-                continue;
+                try {
+                    if (input.contains("deadline")) {
+                        if (endIndexOfTask(input) == -1) {
+                            throw new EmptyByException("Please remember to include deadline time with /at");
+                        }
+                        Deadline task = new Deadline(input.substring(indexOfTask("deadline"), endIndexOfTask(input)), input.substring(endIndexOfTask(input) + 4));
+                        inputStore[index++] = task;
+                        addTaskMessage();
+                        System.out.println("  " + task.toString());
+                        printListLengthMessage(index);
+                        input = chatInput.nextLine();
+                        continue;
+                    }
+                } catch (EmptyByException e){
+                    System.out.println(e.getMessage());
+                    input = chatInput.nextLine();
+                    continue;
+                }
+                try {
+                    if (input.contains("todo")) {
+                        if (input.length() != "todo".length()) {
+                            Todo task = new Todo(input.substring(indexOfTask("todo")));
+                            inputStore[index++] = task;
+                            addTaskMessage();
+                            System.out.println("  " + task.toString());
+                            printListLengthMessage(index);
+                            input = chatInput.nextLine();
+                            continue;
+                        } else {
+                            throw new EmptyDescriptionException("OOPS!!! The description of a todo cannot be empty.");
+                        }
+                    }
+                } catch (EmptyDescriptionException e) {
+                    System.out.println(e.getMessage());
+                    input = chatInput.nextLine();
+                    continue;
+                }
+                try {
+                    if (input.contains("event")) {
+
+                        // "/" not found in line
+                        if (endIndexOfTask(input) == -1) {
+                            throw new EmptyEventAtException("Please remember to include event time and date with /at");
+                        }
+                        Event task = new Event(input.substring(indexOfTask("event"), endIndexOfTask(input)), input.substring(endIndexOfTask(input) + 4));
+                        inputStore[index++] = task;
+                        addTaskMessage();
+                        System.out.println("  " + task.toString());
+                        printListLengthMessage(index);
+                        input = chatInput.nextLine();
+                        continue;
+                    }
+                } catch (EmptyEventAtException e) {
+                    System.out.println(e.getMessage());
+                    input = chatInput.nextLine();
+                    continue;
+                }
+                if (input.contains("unmark")) {
+                    // last index
+                    int taskNumber = Integer.valueOf(input.substring(input.length() - 1));
+                    int taskIndex = taskNumber - 1;
+                    inputStore[taskIndex].unMark();
+                    unmarkMessage();
+                    System.out.println(inputStore[taskIndex].toString());
+                    input = chatInput.nextLine();
+                    continue;
+                }
+                if (input.contains("mark")) {
+                    // last index
+                    int taskNumber = Integer.valueOf(input.substring(input.length() - 1));
+                    int taskIndex = taskNumber - 1;
+                    inputStore[taskIndex].markAsDone();
+                    markMessage();
+                    System.out.println(inputStore[taskIndex].toString());
+                    input = chatInput.nextLine();
+                    continue;
+                }
+                throw new InvalidCommandException("OOPS!!! I'm sorry, but i don't know what that means :-(");
             }
-            if (input.contains("deadline")) {
-                Deadline task = new Deadline(input.substring(indexOfTask("deadline"), endIndexOfTask(input)), input.substring(endIndexOfTask(input) + 4));
-                inputStore[index++] = task;
-                addTaskMessage();
-                System.out.println("  " + task.toString());
-                printListLengthMessage(index);
+            catch (InvalidCommandException e){
+                System.out.println(e.getMessage());
                 input = chatInput.nextLine();
                 continue;
+
             }
-            if (input.contains("todo")) {
-                Todo task = new Todo(input.substring(indexOfTask("todo")));
-                inputStore[index++] = task;
-                addTaskMessage();
-                System.out.println("  " + task.toString());
-                printListLengthMessage(index);
-                input = chatInput.nextLine();
-                continue;
-            }
-            if (input.contains("event")) {
-                Event task = new Event(input.substring(indexOfTask("event"), endIndexOfTask(input)), input.substring(endIndexOfTask(input) + 4));
-                inputStore[index++] = task;
-                addTaskMessage();
-                System.out.println("  " + task.toString());
-                printListLengthMessage(index);
-                input = chatInput.nextLine();
-                continue;
-            }
-            if (input.contains("unmark")) {
-                // last index
-                int taskNumber = Integer.valueOf(input.substring(input.length() - 1));
-                int taskIndex = taskNumber - 1;
-                inputStore[taskIndex].unMark();
-                unmarkMessage();
-                System.out.println(inputStore[taskIndex].toString());
-                input = chatInput.nextLine();
-                continue;
-            }
-            if (input.contains("mark")) {
-                // last index
-                int taskNumber = Integer.valueOf(input.substring(input.length() - 1));
-                int taskIndex = taskNumber - 1;
-                inputStore[taskIndex].markAsDone();
-                markMessage();
-                System.out.println(inputStore[taskIndex].toString());
-                input = chatInput.nextLine();
-                continue;
-            }
-            // inputStore[index++] = new Task(input);
-            // System.out.println("added: " + input);
-            input = chatInput.nextLine();
         }
 
         System.out.print("Bye. Hope to see you again soon!");
