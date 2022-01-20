@@ -1,8 +1,10 @@
 import java.util.Scanner;
+import java.util.ArrayList;
+
 public class Duke {
     public static void main(String[] args) throws DukeException {
         // Array of Task instead, each task has its state and behaviour
-        Task[] inputStore = new Task[100];
+        ArrayList<Task> inputStore = new ArrayList<Task>();
         String input;
         int index = 0;
 
@@ -17,9 +19,9 @@ public class Duke {
         while (!input.equals("bye")) {
             try {
                 if (input.equals("list")) {
-                    for (int i = 0; i < index; i++) {
+                    for (int i = 0; i < inputStore.size(); i++) {
                         // System.out.println((i + 1) + ". "+ "[" + inputStore[i].getStatusIcon() + "] "  + inputStore[i].description);
-                        System.out.println((i + 1) + "." + inputStore[i].toString());
+                        System.out.println((i + 1) + "." + inputStore.get(i).toString());
                     }
                     input = chatInput.nextLine();
                     // move to next iteration
@@ -31,10 +33,10 @@ public class Duke {
                             throw new EmptyByException("Please remember to include deadline time with /at");
                         }
                         Deadline task = new Deadline(input.substring(indexOfTask("deadline"), endIndexOfTask(input)), input.substring(endIndexOfTask(input) + 4));
-                        inputStore[index++] = task;
+                        inputStore.add(task);
                         addTaskMessage();
                         System.out.println("  " + task.toString());
-                        printListLengthMessage(index);
+                        printListLengthMessage(inputStore.size());
                         input = chatInput.nextLine();
                         continue;
                     }
@@ -47,10 +49,11 @@ public class Duke {
                     if (input.contains("todo")) {
                         if (input.length() != "todo".length()) {
                             Todo task = new Todo(input.substring(indexOfTask("todo")));
-                            inputStore[index++] = task;
+                            // inputStore[index++] = task;
+                            inputStore.add(task);
                             addTaskMessage();
                             System.out.println("  " + task.toString());
-                            printListLengthMessage(index);
+                            printListLengthMessage(inputStore.size());
                             input = chatInput.nextLine();
                             continue;
                         } else {
@@ -70,10 +73,10 @@ public class Duke {
                             throw new EmptyEventAtException("Please remember to include event time and date with /at");
                         }
                         Event task = new Event(input.substring(indexOfTask("event"), endIndexOfTask(input)), input.substring(endIndexOfTask(input) + 4));
-                        inputStore[index++] = task;
+                        inputStore.add(task);
                         addTaskMessage();
                         System.out.println("  " + task.toString());
-                        printListLengthMessage(index);
+                        printListLengthMessage(inputStore.size());
                         input = chatInput.nextLine();
                         continue;
                     }
@@ -86,9 +89,9 @@ public class Duke {
                     // last index
                     int taskNumber = Integer.valueOf(input.substring(input.length() - 1));
                     int taskIndex = taskNumber - 1;
-                    inputStore[taskIndex].unMark();
+                    inputStore.get(taskIndex).unMark();
                     unmarkMessage();
-                    System.out.println(inputStore[taskIndex].toString());
+                    System.out.println(inputStore.get(taskIndex).toString());
                     input = chatInput.nextLine();
                     continue;
                 }
@@ -96,9 +99,19 @@ public class Duke {
                     // last index
                     int taskNumber = Integer.valueOf(input.substring(input.length() - 1));
                     int taskIndex = taskNumber - 1;
-                    inputStore[taskIndex].markAsDone();
+                    inputStore.get(taskIndex).markAsDone();
                     markMessage();
-                    System.out.println(inputStore[taskIndex].toString());
+                    System.out.println(inputStore.get(taskIndex).toString());
+                    input = chatInput.nextLine();
+                    continue;
+                }
+                if (input.contains("delete")) {
+                    int taskNumber = Integer.valueOf(input.substring(input.length() - 1));
+                    int taskIndex = taskNumber - 1;
+                    deleteTaskMessage();
+                    System.out.println(inputStore.get(taskIndex).toString());
+                    inputStore.remove(taskIndex);
+                    printListLengthMessage(inputStore.size());
                     input = chatInput.nextLine();
                     continue;
                 }
@@ -108,10 +121,8 @@ public class Duke {
                 System.out.println(e.getMessage());
                 input = chatInput.nextLine();
                 continue;
-
             }
         }
-
         System.out.print("Bye. Hope to see you again soon!");
         chatInput.close();
     }
@@ -143,6 +154,9 @@ public class Duke {
         System.out.println("Got it. I've added this task:");
     }
 
+    public static void deleteTaskMessage() {
+        System.out.println("Noted. I've removed this task:");
+    }
     public static void printListLengthMessage(int runningIndex) {
         System.out.println(String.format("Now you have %d tasks in the list", runningIndex));
     }
