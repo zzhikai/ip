@@ -69,12 +69,9 @@ public class Duke {
                             addTaskMessage(task);
                             printListLengthMessage(inputStore.size());
                         } catch (DateTimeException d) {
-                            throw new DukeException("invalid date input");
+                            throw new DukeException("invalid date input, use yyyy-MM-dd or dd-MM-yyyy or dd/MM/yyyy or dd:MM:yyyy");
                         } catch (Exception e) {
-                            inputIsValid = false;
                             throw new DukeException("Please include correct deadline time");
-                            // DateTimeFormatter ddMmYyyyformat = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-                            // date = LocalDate.parse(by, ddMmYyyyformat);
                         }
                         // when date numbers exceed will have null pointer here, do a check for null pointer?
                         break;
