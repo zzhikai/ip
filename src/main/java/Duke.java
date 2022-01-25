@@ -36,11 +36,13 @@ public class Duke {
         input = chatInput.nextLine();
 
         while (!input.equals("bye")) {
-            String[] inputStrings = input.split(" ",2);
+            String[] inputStrings = input.trim().split(" ",2);
             String inputCommand = inputStrings[0];
             // has command and body
             String inputBody = inputStrings.length == 2 ? inputStrings[1] : "";
             Task task;
+            int taskNumber;
+            int taskIndex;
             try {
                 switch (inputCommand) {
 
@@ -53,7 +55,6 @@ public class Duke {
                         break;
 
                     case "deadline":
-                        System.out.println("Deadline command received");
                         if (endIndexOfTask(input) == -1) {
                             throw new EmptyByException("Please remember to include deadline time with /by");
                         }
@@ -62,36 +63,56 @@ public class Duke {
                         task = new Deadline(deadlineInfo[0], deadlineInfo[1]);
                         // Deadline task = new Deadline(input.substring(indexOfTask("deadline"), endIndexOfTask(input)), input.substring(endIndexOfTask(input) + 4));
                         inputStore.add(task);
-                        addTaskMessage();
-                        System.out.println("  " + task.toString());
+                        addTaskMessage(task);
                         printListLengthMessage(inputStore.size());
                         break;
 
                     case "event":
-                        System.out.println("Event command received");
                         if (endIndexOfTask(input) == -1) {
                             throw new EmptyEventAtException("Please remember to include event time and date with /at");
                         }
                         task = new Event(input.substring(indexOfTask("event"), endIndexOfTask(input)), input.substring(endIndexOfTask(input) + 4));
                         inputStore.add(task);
-                        addTaskMessage();
-                        System.out.println("  " + task.toString());
+                        addTaskMessage(task);
                         printListLengthMessage(inputStore.size());
                         break;
 
                     case "todo":
-                        System.out.println("Todo command received");
-                        if (input.length() != "todo".length()) {
+                        // use trim, and inputBody check to not allow todo<space> to be added
+                        if (input.length() != "todo".length() && inputBody != "") {
                             task = new Todo(input.substring(indexOfTask("todo")));
                             // inputStore[index++] = task;
                             inputStore.add(task);
-                            addTaskMessage();
-                            System.out.println("  " + task.toString());
+                            addTaskMessage(task);
                             printListLengthMessage(inputStore.size());
                         } else {
                             throw new EmptyDescriptionException("OOPS!!! The description of a todo cannot be empty.");
                         }
                         break;
+                    case "mark":
+                        taskNumber = Integer.valueOf(input.substring(input.length() - 1));
+                        taskIndex = taskNumber - 1;
+                        inputStore.get(taskIndex).markAsDone();
+                        markMessage();
+                        System.out.println(inputStore.get(taskIndex).toString());
+                        break;
+                    case "unmark":
+                        taskNumber = Integer.valueOf(input.substring(input.length() - 1));
+                        taskIndex = taskNumber - 1;
+                        inputStore.get(taskIndex).unMark();
+                        unmarkMessage();
+                        System.out.println(inputStore.get(taskIndex).toString());
+                        break;
+                    case "delete":
+                        taskNumber = Integer.valueOf(input.substring(input.length() - 1));
+                        taskIndex = taskNumber - 1;
+                        deleteTaskMessage();
+                        System.out.println(inputStore.get(taskIndex).toString());
+                        inputStore.remove(taskIndex);
+                        printListLengthMessage(inputStore.size());
+                        break;
+                    default:
+                        throw new InvalidCommandException("OOPS!!! I'm sorry, but i don't know what that means :-(");
                 }
             }
             catch (DukeException e) {
@@ -235,8 +256,9 @@ public class Duke {
         return index;
     }
 
-    public static void addTaskMessage() {
+    public static void addTaskMessage(Task task) {
         System.out.println("Got it. I've added this task:");
+        System.out.println("  " + task.toString());
     }
 
     public static void deleteTaskMessage() {
