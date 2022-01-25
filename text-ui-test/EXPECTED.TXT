@@ -1,5 +1,6 @@
 Hello! I'm Duke
 What can I do for you?
+List is empty, please add task
 Got it. I've added this task:
   [T][ ] fun
 Now you have 1 tasks in the list

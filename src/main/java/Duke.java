@@ -48,6 +48,9 @@ public class Duke {
 
                     case "list":
                         // need to handle when list is empty
+                        if (inputStore.size() == 0) {
+                            throw new EmptyListException("List is empty, please add task");
+                        }
                         for (int i = 0; i < inputStore.size(); i++) {
                             // System.out.println((i + 1) + ". "+ "[" + inputStore[i].getStatusIcon() + "] "  + inputStore[i].description);
                             System.out.println((i + 1) + "." + inputStore.get(i).toString());
