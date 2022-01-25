@@ -1,5 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.time.DateTimeException;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -58,14 +60,24 @@ public class Duke {
                         if (endIndexOfTask(input) == -1) {
                             throw new EmptyByException("Please remember to include deadline time with /by");
                         }
+                        boolean inputIsValid = true;
                         // description , by
                         String[] deadlineInfo = inputBody.split("/by ");
-                        task = new Deadline(deadlineInfo[0], deadlineInfo[1]);
-                        inputStore.add(task);
-                        addTaskMessage(task);
-                        printListLengthMessage(inputStore.size());
+                        try {
+                            task = new Deadline(deadlineInfo[0], deadlineInfo[1]);
+                            inputStore.add(task);
+                            addTaskMessage(task);
+                            printListLengthMessage(inputStore.size());
+                        } catch (DateTimeException d) {
+                            throw new DukeException("invalid date input");
+                        } catch (Exception e) {
+                            inputIsValid = false;
+                            throw new DukeException("Please include correct deadline time");
+                            // DateTimeFormatter ddMmYyyyformat = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+                            // date = LocalDate.parse(by, ddMmYyyyformat);
+                        }
+                        // when date numbers exceed will have null pointer here, do a check for null pointer?
                         break;
-
                     case "event":
                         if (endIndexOfTask(input) == -1) {
                             throw new EmptyEventAtException("Please remember to include event time and date with /at");
