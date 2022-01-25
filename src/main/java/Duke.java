@@ -1,12 +1,31 @@
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Duke {
+
+    static String path = "src/main/java/duke.txt";
+
+    private static void printFileContents(String filePath) throws FileNotFoundException {
+        File f = new File(filePath);
+        Scanner s = new Scanner(f);
+        while (s.hasNext()) {
+            System.out.println(s.nextLine());
+        }
+
+    }
     public static void main(String[] args) throws DukeException {
         // Array of Task instead, each task has its state and behaviour
         ArrayList<Task> inputStore = new ArrayList<Task>();
         String input;
         int index = 0;
+
+        /* try {
+            printFileContents(path);
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found");
+        }*/
 
         hello();
 
@@ -17,6 +36,69 @@ public class Duke {
         input = chatInput.nextLine();
 
         while (!input.equals("bye")) {
+            String[] inputStrings = input.split(" ",2);
+            String inputCommand = inputStrings[0];
+            // has command and body
+            String inputBody = inputStrings.length == 2 ? inputStrings[1] : "";
+            Task task;
+            try {
+                switch (inputCommand) {
+
+                    case "list":
+                        // need to handle when list is empty
+                        for (int i = 0; i < inputStore.size(); i++) {
+                            // System.out.println((i + 1) + ". "+ "[" + inputStore[i].getStatusIcon() + "] "  + inputStore[i].description);
+                            System.out.println((i + 1) + "." + inputStore.get(i).toString());
+                        }
+                        break;
+
+                    case "deadline":
+                        System.out.println("Deadline command received");
+                        if (endIndexOfTask(input) == -1) {
+                            throw new EmptyByException("Please remember to include deadline time with /by");
+                        }
+                        // description , by
+                        String[] deadlineInfo = inputBody.split("/by ");
+                        task = new Deadline(deadlineInfo[0], deadlineInfo[1]);
+                        // Deadline task = new Deadline(input.substring(indexOfTask("deadline"), endIndexOfTask(input)), input.substring(endIndexOfTask(input) + 4));
+                        inputStore.add(task);
+                        addTaskMessage();
+                        System.out.println("  " + task.toString());
+                        printListLengthMessage(inputStore.size());
+                        break;
+
+                    case "event":
+                        System.out.println("Event command received");
+                        if (endIndexOfTask(input) == -1) {
+                            throw new EmptyEventAtException("Please remember to include event time and date with /at");
+                        }
+                        task = new Event(input.substring(indexOfTask("event"), endIndexOfTask(input)), input.substring(endIndexOfTask(input) + 4));
+                        inputStore.add(task);
+                        addTaskMessage();
+                        System.out.println("  " + task.toString());
+                        printListLengthMessage(inputStore.size());
+                        break;
+
+                    case "todo":
+                        System.out.println("Todo command received");
+                        if (input.length() != "todo".length()) {
+                            task = new Todo(input.substring(indexOfTask("todo")));
+                            // inputStore[index++] = task;
+                            inputStore.add(task);
+                            addTaskMessage();
+                            System.out.println("  " + task.toString());
+                            printListLengthMessage(inputStore.size());
+                        } else {
+                            throw new EmptyDescriptionException("OOPS!!! The description of a todo cannot be empty.");
+                        }
+                        break;
+                }
+            }
+            catch (DukeException e) {
+                System.out.println(e.getMessage());
+            }
+            input = chatInput.nextLine();
+            /*
             try {
                 if (input.equals("list")) {
                     for (int i = 0; i < inputStore.size(); i++) {
@@ -28,11 +110,14 @@ public class Duke {
                     continue;
                 }
                 try {
-                    if (input.contains("deadline")) {
+                    if (inputCommand.equals("deadline")) {
                         if (endIndexOfTask(input) == -1) {
-                            throw new EmptyByException("Please remember to include deadline time with /at");
+                            throw new EmptyByException("Please remember to include deadline time with /by");
                         }
-                        Deadline task = new Deadline(input.substring(indexOfTask("deadline"), endIndexOfTask(input)), input.substring(endIndexOfTask(input) + 4));
+                        // description , by
+                        String[] deadlineInfo = inputBody.split("/by ");
+                        Deadline task = new Deadline(deadlineInfo[0], deadlineInfo[1]);
+                        // Deadline task = new Deadline(input.substring(indexOfTask("deadline"), endIndexOfTask(input)), input.substring(endIndexOfTask(input) + 4));
                         inputStore.add(task);
                         addTaskMessage();
                         System.out.println("  " + task.toString());
@@ -46,7 +131,7 @@ public class Duke {
                     continue;
                 }
                 try {
-                    if (input.contains("todo")) {
+                    if (inputCommand.equals("todo")) {
                         if (input.length() != "todo".length()) {
                             Todo task = new Todo(input.substring(indexOfTask("todo")));
                             // inputStore[index++] = task;
@@ -66,7 +151,7 @@ public class Duke {
                     continue;
                 }
                 try {
-                    if (input.contains("event")) {
+                    if (inputCommand.equals("event")) {
 
                         // "/" not found in line
                         if (endIndexOfTask(input) == -1) {
@@ -85,7 +170,7 @@ public class Duke {
                     input = chatInput.nextLine();
                     continue;
                 }
-                if (input.contains("unmark")) {
+                if (inputCommand.equals("unmark")) {
                     // last index
                     int taskNumber = Integer.valueOf(input.substring(input.length() - 1));
                     int taskIndex = taskNumber - 1;
@@ -95,7 +180,7 @@ public class Duke {
                     input = chatInput.nextLine();
                     continue;
                 }
-                if (input.contains("mark")) {
+                if (inputCommand.equals("mark")) {
                     // last index
                     int taskNumber = Integer.valueOf(input.substring(input.length() - 1));
                     int taskIndex = taskNumber - 1;
@@ -105,7 +190,7 @@ public class Duke {
                     input = chatInput.nextLine();
                     continue;
                 }
-                if (input.contains("delete")) {
+                if (inputCommand.equals("delete")) {
                     int taskNumber = Integer.valueOf(input.substring(input.length() - 1));
                     int taskIndex = taskNumber - 1;
                     deleteTaskMessage();
@@ -121,7 +206,7 @@ public class Duke {
                 System.out.println(e.getMessage());
                 input = chatInput.nextLine();
                 continue;
-            }
+            }*/
         }
         System.out.print("Bye. Hope to see you again soon!");
         chatInput.close();
