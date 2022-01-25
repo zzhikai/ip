@@ -31,8 +31,6 @@ public class Duke {
 
         Scanner chatInput = new Scanner( System.in );
 
-        // commands: todo, deadline, event
-
         input = chatInput.nextLine();
 
         while (!input.equals("bye")) {
@@ -52,7 +50,6 @@ public class Duke {
                             throw new EmptyListException("List is empty, please add task");
                         }
                         for (int i = 0; i < inputStore.size(); i++) {
-                            // System.out.println((i + 1) + ". "+ "[" + inputStore[i].getStatusIcon() + "] "  + inputStore[i].description);
                             System.out.println((i + 1) + "." + inputStore.get(i).toString());
                         }
                         break;
@@ -64,7 +61,6 @@ public class Duke {
                         // description , by
                         String[] deadlineInfo = inputBody.split("/by ");
                         task = new Deadline(deadlineInfo[0], deadlineInfo[1]);
-                        // Deadline task = new Deadline(input.substring(indexOfTask("deadline"), endIndexOfTask(input)), input.substring(endIndexOfTask(input) + 4));
                         inputStore.add(task);
                         addTaskMessage(task);
                         printListLengthMessage(inputStore.size());
@@ -81,7 +77,6 @@ public class Duke {
                         break;
 
                     case "todo":
-                        // use trim, and inputBody check to not allow todo<space> to be added
                         if (input.length() != "todo".length() && inputBody != "") {
                             task = new Todo(input.substring(indexOfTask("todo")));
                             // inputStore[index++] = task;
@@ -122,115 +117,6 @@ public class Duke {
                 System.out.println(e.getMessage());
             }
             input = chatInput.nextLine();
-            /*
-            try {
-                if (input.equals("list")) {
-                    for (int i = 0; i < inputStore.size(); i++) {
-                        // System.out.println((i + 1) + ". "+ "[" + inputStore[i].getStatusIcon() + "] "  + inputStore[i].description);
-                        System.out.println((i + 1) + "." + inputStore.get(i).toString());
-                    }
-                    input = chatInput.nextLine();
-                    // move to next iteration
-                    continue;
-                }
-                try {
-                    if (inputCommand.equals("deadline")) {
-                        if (endIndexOfTask(input) == -1) {
-                            throw new EmptyByException("Please remember to include deadline time with /by");
-                        }
-                        // description , by
-                        String[] deadlineInfo = inputBody.split("/by ");
-                        Deadline task = new Deadline(deadlineInfo[0], deadlineInfo[1]);
-                        // Deadline task = new Deadline(input.substring(indexOfTask("deadline"), endIndexOfTask(input)), input.substring(endIndexOfTask(input) + 4));
-                        inputStore.add(task);
-                        addTaskMessage();
-                        System.out.println("  " + task.toString());
-                        printListLengthMessage(inputStore.size());
-                        input = chatInput.nextLine();
-                        continue;
-                    }
-                } catch (EmptyByException e){
-                    System.out.println(e.getMessage());
-                    input = chatInput.nextLine();
-                    continue;
-                }
-                try {
-                    if (inputCommand.equals("todo")) {
-                        if (input.length() != "todo".length()) {
-                            Todo task = new Todo(input.substring(indexOfTask("todo")));
-                            // inputStore[index++] = task;
-                            inputStore.add(task);
-                            addTaskMessage();
-                            System.out.println("  " + task.toString());
-                            printListLengthMessage(inputStore.size());
-                            input = chatInput.nextLine();
-                            continue;
-                        } else {
-                            throw new EmptyDescriptionException("OOPS!!! The description of a todo cannot be empty.");
-                        }
-                    }
-                } catch (EmptyDescriptionException e) {
-                    System.out.println(e.getMessage());
-                    input = chatInput.nextLine();
-                    continue;
-                }
-                try {
-                    if (inputCommand.equals("event")) {
-
-                        // "/" not found in line
-                        if (endIndexOfTask(input) == -1) {
-                            throw new EmptyEventAtException("Please remember to include event time and date with /at");
-                        }
-                        Event task = new Event(input.substring(indexOfTask("event"), endIndexOfTask(input)), input.substring(endIndexOfTask(input) + 4));
-                        inputStore.add(task);
-                        addTaskMessage();
-                        System.out.println("  " + task.toString());
-                        printListLengthMessage(inputStore.size());
-                        input = chatInput.nextLine();
-                        continue;
-                    }
-                } catch (EmptyEventAtException e) {
-                    System.out.println(e.getMessage());
-                    input = chatInput.nextLine();
-                    continue;
-                }
-                if (inputCommand.equals("unmark")) {
-                    // last index
-                    int taskNumber = Integer.valueOf(input.substring(input.length() - 1));
-                    int taskIndex = taskNumber - 1;
-                    inputStore.get(taskIndex).unMark();
-                    unmarkMessage();
-                    System.out.println(inputStore.get(taskIndex).toString());
-                    input = chatInput.nextLine();
-                    continue;
-                }
-                if (inputCommand.equals("mark")) {
-                    // last index
-                    int taskNumber = Integer.valueOf(input.substring(input.length() - 1));
-                    int taskIndex = taskNumber - 1;
-                    inputStore.get(taskIndex).markAsDone();
-                    markMessage();
-                    System.out.println(inputStore.get(taskIndex).toString());
-                    input = chatInput.nextLine();
-                    continue;
-                }
-                if (inputCommand.equals("delete")) {
-                    int taskNumber = Integer.valueOf(input.substring(input.length() - 1));
-                    int taskIndex = taskNumber - 1;
-                    deleteTaskMessage();
-                    System.out.println(inputStore.get(taskIndex).toString());
-                    inputStore.remove(taskIndex);
-                    printListLengthMessage(inputStore.size());
-                    input = chatInput.nextLine();
-                    continue;
-                }
-                throw new InvalidCommandException("OOPS!!! I'm sorry, but i don't know what that means :-(");
-            }
-            catch (InvalidCommandException e){
-                System.out.println(e.getMessage());
-                input = chatInput.nextLine();
-                continue;
-            }*/
         }
         System.out.print("Bye. Hope to see you again soon!");
         chatInput.close();
