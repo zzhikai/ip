@@ -1,7 +1,11 @@
+<<<<<<< HEAD
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.time.DateTimeException;
 import java.time.format.DateTimeParseException;
+=======
+import java.io.*;
+>>>>>>> master
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -28,6 +32,18 @@ public class Duke {
         } catch (FileNotFoundException e) {
             System.out.println("File not found");
         }*/
+        // reading data file into current list
+        try {
+            FileInputStream databaseInputStream = new FileInputStream("src/main/java/TaskDatabase.ser");
+            ObjectInputStream readDataBaseStream = new ObjectInputStream(databaseInputStream);
+            ArrayList inputDatabase = (ArrayList<Task>) readDataBaseStream.readObject();
+            inputStore = inputDatabase;
+            readDataBaseStream.close();
+            System.out.println("Reading of database stopped");
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("Database is Empty!");
+            inputStore = new ArrayList<>();
+        }
 
         hello();
 
@@ -99,7 +115,6 @@ public class Duke {
                     case "todo":
                         if (input.length() != "todo".length() && inputBody != "") {
                             task = new Todo(input.substring(indexOfTask("todo")));
-                            // inputStore[index++] = task;
                             inputStore.add(task);
                             addTaskMessage(task);
                             printListLengthMessage(inputStore.size());
@@ -108,21 +123,21 @@ public class Duke {
                         }
                         break;
                     case "mark":
-                        taskNumber = Integer.valueOf(input.substring(input.length() - 1));
+                        taskNumber = Integer.valueOf(inputBody);
                         taskIndex = taskNumber - 1;
                         inputStore.get(taskIndex).markAsDone();
                         markMessage();
                         System.out.println(inputStore.get(taskIndex).toString());
                         break;
                     case "unmark":
-                        taskNumber = Integer.valueOf(input.substring(input.length() - 1));
+                        taskNumber = Integer.valueOf(inputBody);
                         taskIndex = taskNumber - 1;
                         inputStore.get(taskIndex).unMark();
                         unmarkMessage();
                         System.out.println(inputStore.get(taskIndex).toString());
                         break;
                     case "delete":
-                        taskNumber = Integer.valueOf(input.substring(input.length() - 1));
+                        taskNumber = Integer.valueOf(inputBody);
                         taskIndex = taskNumber - 1;
                         deleteTaskMessage();
                         System.out.println(inputStore.get(taskIndex).toString());
@@ -138,8 +153,23 @@ public class Duke {
             }
             input = chatInput.nextLine();
         }
+
+        // write into file
+        writeDataInputToDisk(inputStore);
         System.out.print("Bye. Hope to see you again soon!");
         chatInput.close();
+    }
+
+    public static void writeDataInputToDisk(ArrayList<Task> inputTaskList) {
+        try {
+            FileOutputStream writeDatabaseInput = new FileOutputStream("src/main/java/TaskDatabase.ser");
+            ObjectOutputStream writeDatabaseStream = new ObjectOutputStream(writeDatabaseInput);
+            writeDatabaseStream.writeObject(inputTaskList);
+            writeDatabaseStream.flush();
+            writeDatabaseStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void hello() {
