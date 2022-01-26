@@ -1,7 +1,8 @@
-import java.io.*;
-import java.time.DateTimeException;
+package Duke.TaskList;
+
+import Duke.Task.Task;
+import Duke.Exception.*;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 
 public class TaskList {
@@ -9,7 +10,7 @@ public class TaskList {
     static String path = "src/main/java/duke.txt";
     private ArrayList<Task> taskStore;
 
-    // read from file first then pass to TaskList to finalised in a sense and work with list from here
+    // read from file first then pass to Duke.TaskList.Duke.TaskList to finalised in a sense and work with list from here
     public TaskList(ArrayList<Task> taskDatabase) {
         this.taskStore = taskDatabase;
     }
@@ -66,7 +67,7 @@ public class TaskList {
     }
 
     public static void main(String[] args) throws DukeException {
-        // Array of Task instead, each task has its state and behaviour
+        // Array of Duke.Task.Duke.Task instead, each task has its state and behaviour
         ArrayList<Task> inputStore = new ArrayList<Task>();
         String input;
         int index = 0;
