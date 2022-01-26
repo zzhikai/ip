@@ -22,25 +22,22 @@ public class Duke {
     public static void main(String[] args) throws DukeException {
         // Array of Task instead, each task has its state and behaviour
         ArrayList<Task> inputStore = new ArrayList<Task>();
+        TaskList taskDataList;
         String input;
         int index = 0;
 
-        /* try {
-            printFileContents(path);
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found");
-        }*/
         // reading data file into current list
         try {
             FileInputStream databaseInputStream = new FileInputStream("src/main/java/TaskDatabase.ser");
             ObjectInputStream readDataBaseStream = new ObjectInputStream(databaseInputStream);
             ArrayList inputDatabase = (ArrayList<Task>) readDataBaseStream.readObject();
-            inputStore = inputDatabase;
+            taskDataList = new TaskList(inputDatabase);
             readDataBaseStream.close();
             System.out.println("Reading of database stopped");
         } catch (IOException | ClassNotFoundException e) {
             System.out.println("Database is Empty!");
             inputStore = new ArrayList<>();
+            taskDataList = new TaskList(inputStore);
         }
 
         hello();
@@ -57,17 +54,12 @@ public class Duke {
             Task task;
             int taskNumber;
             int taskIndex;
+            // convert to parser each line,
             try {
                 switch (inputCommand) {
 
                     case "list":
-                        // need to handle when list is empty
-                        if (inputStore.size() == 0) {
-                            throw new EmptyListException("List is empty, please add task");
-                        }
-                        for (int i = 0; i < inputStore.size(); i++) {
-                            System.out.println((i + 1) + "." + inputStore.get(i).toString());
-                        }
+                        taskDataList.printOutTaskList();
                         break;
 
                     case "deadline":
@@ -81,13 +73,9 @@ public class Duke {
                         }
                         boolean inputIsValid = true;
                         // description , by
-
-
                         try {
                             task = new Deadline(deadlineInfo[0], deadlineInfo[1]);
-                            inputStore.add(task);
-                            addTaskMessage(task);
-                            printListLengthMessage(inputStore.size());
+                            taskDataList.addTask(task);
                         } catch (DateTimeException d) {
                             throw new DukeException("invalid date input, use yyyy-MM-dd or dd-MM-yyyy or dd/MM/yyyy or dd:MM:yyyy");
                         } catch (Exception e) {
@@ -105,42 +93,37 @@ public class Duke {
                             throw new EmptyEventAtException("Please remember to include event time and date with /at");
                         }
                         task = new Event(input.substring(indexOfTask("event"), endIndexOfTask(input)), input.substring(endIndexOfTask(input) + 4));
-                        inputStore.add(task);
-                        addTaskMessage(task);
-                        printListLengthMessage(inputStore.size());
+                        taskDataList.addTask(task);
                         break;
 
                     case "todo":
                         if (input.length() != "todo".length() && inputBody != "") {
                             task = new Todo(input.substring(indexOfTask("todo")));
-                            inputStore.add(task);
-                            addTaskMessage(task);
-                            printListLengthMessage(inputStore.size());
+                            taskDataList.addTask(task);
                         } else {
                             throw new EmptyDescriptionException("OOPS!!! The description of a todo cannot be empty.");
                         }
                         break;
                     case "mark":
+                        if (input.length() == "mark".length() || inputBody == "") {
+                            throw new EmptyDescriptionException("OOPS!!! The description cannot be empty.");
+                        }
                         taskNumber = Integer.valueOf(inputBody);
                         taskIndex = taskNumber - 1;
-                        inputStore.get(taskIndex).markAsDone();
-                        markMessage();
-                        System.out.println(inputStore.get(taskIndex).toString());
+                        taskDataList.mark(taskIndex);
                         break;
                     case "unmark":
+                        if (input.length() == "mark".length() || inputBody == "") {
+                            throw new EmptyDescriptionException("OOPS!!! The description cannot be empty.");
+                        }
                         taskNumber = Integer.valueOf(inputBody);
                         taskIndex = taskNumber - 1;
-                        inputStore.get(taskIndex).unMark();
-                        unmarkMessage();
-                        System.out.println(inputStore.get(taskIndex).toString());
+                        taskDataList.unMark(taskIndex);
                         break;
                     case "delete":
                         taskNumber = Integer.valueOf(inputBody);
                         taskIndex = taskNumber - 1;
-                        deleteTaskMessage();
-                        System.out.println(inputStore.get(taskIndex).toString());
-                        inputStore.remove(taskIndex);
-                        printListLengthMessage(inputStore.size());
+                        taskDataList.deleteTask(taskIndex);
                         break;
                     default:
                         throw new InvalidCommandException("OOPS!!! I'm sorry, but i don't know what that means :-(");
@@ -153,7 +136,7 @@ public class Duke {
         }
 
         // write into file
-        writeDataInputToDisk(inputStore);
+        writeDataInputToDisk(taskDataList.getTaskStore());
         System.out.print("Bye. Hope to see you again soon!");
         chatInput.close();
     }
@@ -175,14 +158,6 @@ public class Duke {
         System.out.println("What can I do for you?");
     }
 
-    public static void markMessage() {
-        System.out.println("Nice! I've marked this task as done:");
-    }
-
-    public static void unmarkMessage() {
-        System.out.println("OK, I've marked this task as not done yet:");
-    }
-
     public static int indexOfTask(String command) {
         int index = command.length() + 1;
         return index;
@@ -193,15 +168,4 @@ public class Duke {
         return index;
     }
 
-    public static void addTaskMessage(Task task) {
-        System.out.println("Got it. I've added this task:");
-        System.out.println("  " + task.toString());
-    }
-
-    public static void deleteTaskMessage() {
-        System.out.println("Noted. I've removed this task:");
-    }
-    public static void printListLengthMessage(int runningIndex) {
-        System.out.println(String.format("Now you have %d tasks in the list", runningIndex));
-    }
 }
