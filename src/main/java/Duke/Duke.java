@@ -20,7 +20,7 @@ public class Duke {
     private static Ui ui;
     private Ui uiDuke;
     private TaskList taskDataList;
-    public Duke(String filePath) {
+    public Duke() {
         ArrayList<Task> inputDatabase = (ArrayList<Task>) Storage.readFile();
         taskDataList = new TaskList(inputDatabase);
     }
@@ -55,7 +55,7 @@ public class Duke {
     }
 
     public static void main(String[] args) throws DukeException {
-        Duke chatBot = new Duke("src/main/java/TaskDatabase.ser");
+        Duke chatBot = new Duke();
         chatBot.run();
     }
 

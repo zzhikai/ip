@@ -4,7 +4,7 @@ public class Ui {
     public Ui() { }
 
     public void hello() {
-        System.out.println("Hello! Welcome, I'm Duke.Duke");
+        System.out.println("Hello! Welcome, I'm Duke");
         System.out.println("What can I do for you?");
     }
 
