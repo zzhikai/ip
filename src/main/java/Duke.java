@@ -1,4 +1,11 @@
+<<<<<<< HEAD
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.time.DateTimeException;
+import java.time.format.DateTimeParseException;
+=======
 import java.io.*;
+>>>>>>> master
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -66,18 +73,36 @@ public class Duke {
                         break;
 
                     case "deadline":
+                        // check if Task Description is empty
+                        String[] deadlineInfo = inputBody.split("/by ");
+                        if (deadlineInfo[0].trim().length() == 0 ) {
+                            throw new DukeException("Please enter Task Description");
+                        }
                         if (endIndexOfTask(input) == -1) {
                             throw new EmptyByException("Please remember to include deadline time with /by");
                         }
+                        boolean inputIsValid = true;
                         // description , by
-                        String[] deadlineInfo = inputBody.split("/by ");
-                        task = new Deadline(deadlineInfo[0], deadlineInfo[1]);
-                        inputStore.add(task);
-                        addTaskMessage(task);
-                        printListLengthMessage(inputStore.size());
-                        break;
 
+
+                        try {
+                            task = new Deadline(deadlineInfo[0], deadlineInfo[1]);
+                            inputStore.add(task);
+                            addTaskMessage(task);
+                            printListLengthMessage(inputStore.size());
+                        } catch (DateTimeException d) {
+                            throw new DukeException("invalid date input, use yyyy-MM-dd or dd-MM-yyyy or dd/MM/yyyy or dd:MM:yyyy");
+                        } catch (Exception e) {
+                            throw new DukeException("Please include correct deadline time");
+                        }
+                        // when date numbers exceed will have null pointer here, do a check for null pointer?
+                        break;
                     case "event":
+                        String[] eventInfo = inputBody.split("/at ");
+                        // check if Task Description is empty
+                        if (eventInfo[0].trim().length() == 0 ) {
+                            throw new DukeException("Please enter Task Description");
+                        }
                         if (endIndexOfTask(input) == -1) {
                             throw new EmptyEventAtException("Please remember to include event time and date with /at");
                         }
