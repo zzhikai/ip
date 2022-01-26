@@ -10,7 +10,12 @@ import java.time.format.DateTimeParseException;
 public class Duke {
 
     static String path = "src/main/java/duke.txt";
+    private static Ui ui;
+    private Ui uiDuke;
 
+    public Duke(String filePath) {
+        uiDuke = new Ui();
+    }
     private static void printFileContents(String filePath) throws FileNotFoundException {
         File f = new File(filePath);
         Scanner s = new Scanner(f);
@@ -24,10 +29,11 @@ public class Duke {
         ArrayList<Task> inputStore = new ArrayList<Task>();
         TaskList taskDataList;
         String input;
+        ui = new Ui();
         int index = 0;
 
         // reading data file into current list
-        try {
+        /* try {
             FileInputStream databaseInputStream = new FileInputStream("src/main/java/TaskDatabase.ser");
             ObjectInputStream readDataBaseStream = new ObjectInputStream(databaseInputStream);
             ArrayList inputDatabase = (ArrayList<Task>) readDataBaseStream.readObject();
@@ -38,10 +44,12 @@ public class Duke {
             System.out.println("Database is Empty!");
             inputStore = new ArrayList<>();
             taskDataList = new TaskList(inputStore);
-        }
+        }*/
 
-        hello();
-
+        ui.hello();
+        Storage fileStore = new Storage(path);
+        ArrayList inputDatabase = fileStore.readFile();
+        taskDataList = new TaskList(inputDatabase);
         Scanner chatInput = new Scanner( System.in );
 
         input = chatInput.nextLine();
@@ -130,14 +138,14 @@ public class Duke {
                 }
             }
             catch (DukeException e) {
-                System.out.println(e.getMessage());
+                ui.showError(e);
             }
             input = chatInput.nextLine();
         }
 
         // write into file
-        writeDataInputToDisk(taskDataList.getTaskStore());
-        System.out.print("Bye. Hope to see you again soon!");
+        fileStore.saveToFile(taskDataList.getTaskStore());
+        ui.bye();
         chatInput.close();
     }
 
@@ -151,11 +159,6 @@ public class Duke {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    public static void hello() {
-        System.out.println("Hello! I'm Duke");
-        System.out.println("What can I do for you?");
     }
 
     public static int indexOfTask(String command) {
