@@ -6,7 +6,7 @@ import Duke.TaskList.TaskList;
  * Represents a command.
  */
 public abstract class Command {
-    private String input;
+    protected String input;
 
     /**
      * Create a command.

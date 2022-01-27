@@ -121,4 +121,21 @@ public class TaskList {
         System.out.println("  " + newTask.toString());
         System.out.println(String.format("Now you have %d tasks in the list", this.getSizeOfTaskList()));
     }
+
+    public void findTask(String searchWord) throws DukeException {
+        ArrayList<Task> searchResult = new ArrayList<>();
+
+        for (int i = 0; i < taskStore.size(); i++) {
+            if (taskStore.get(i).toString().contains(searchWord)) {
+                searchResult.add(taskStore.get(i));
+            }
+        }
+        if (searchResult.size() == 0) {
+            throw new EmptyListException("No results found!");
+        }
+        for (int i = 0; i < searchResult.size(); i++) {
+            System.out.println((i + 1) + "." + searchResult.get(i).toString());
+        }
+
+    }
 }

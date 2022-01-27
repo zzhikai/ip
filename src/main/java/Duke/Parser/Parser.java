@@ -49,6 +49,8 @@ public class Parser {
             return new UnmarkCommand(inputBody);
         case "delete":
             return new DeleteCommand(inputBody);
+        case "find":
+            return new FindCommand(inputBody);
         default:
             throw new InvalidCommandException("OOPS!!! I'm sorry, but i don't know what that means :-(");
         }
