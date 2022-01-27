@@ -3,10 +3,7 @@ package Duke.Storage;
 import Duke.Task.Task;
 
 import java.io.*;
-import java.util.Scanner;
 import java.util.ArrayList;
-import java.io.File;
-import java.io.FileNotFoundException;
 
 public class Storage {
 
@@ -23,10 +20,8 @@ public class Storage {
             ObjectInputStream readDataBaseStream = new ObjectInputStream(databaseInputStream);
             ArrayList inputDatabase = (ArrayList<Task>) readDataBaseStream.readObject();
             readDataBaseStream.close();
-            System.out.println("Reading of database stopped");
             return inputDatabase;
         } catch (IOException | ClassNotFoundException e) {
-            System.out.println("Database is Empty!");
             return new ArrayList<>();
         }
     }
