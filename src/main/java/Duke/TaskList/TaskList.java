@@ -122,8 +122,17 @@ public class TaskList {
         System.out.println(String.format("Now you have %d tasks in the list", this.getSizeOfTaskList()));
     }
 
+    /**
+     * Prints list of tasks which contains matching words.
+     *
+     * @param searchWord Word to find within task.
+     * @throws DukeException If searchWord is empty or tasks with matching words not found.
+     */
     public void findTask(String searchWord) throws DukeException {
         ArrayList<Task> searchResult = new ArrayList<>();
+        if (searchWord.trim().length() == 0) {
+            throw new DukeException("Please input word to find");
+        }
 
         for (int i = 0; i < taskStore.size(); i++) {
             if (taskStore.get(i).toString().contains(searchWord)) {
