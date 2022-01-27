@@ -8,14 +8,22 @@ import Duke.TaskList.TaskList;
 
 import java.time.DateTimeException;
 
+/**
+ * Represents a command to add deadline task.
+ */
 public class DeadlineCommand extends Command {
     private Task task;
-    // private TaskList taskDataList;
 
-    public DeadlineCommand(String inputBody) throws DukeException {
-        super(inputBody);
-        int deadlineMarker = inputBody.indexOf("/by");
-        String[] deadlineInfo = inputBody.split("/by ");
+    /**
+     * Creates a DeadlineCommand with deadline task.
+     *
+     * @param description Description of deadline task.
+     * @throws DukeException If description is empty or is of an invalid format.
+     */
+    public DeadlineCommand(String description) throws DukeException {
+        super(description);
+        int deadlineMarker = description.indexOf("/by");
+        String[] deadlineInfo = description.split("/by ");
         if (deadlineInfo[0].trim().length() == 0 ) {
             throw new DukeException("Please enter Task Description");
         }
@@ -31,9 +39,13 @@ public class DeadlineCommand extends Command {
         }
     }
 
+    /**
+     * Executes DeadlineCommand to add deadline task to a TaskList.
+     *
+     * @param taskList TaskList for command to add task to.
+     */
     @Override
     public void callCommand(TaskList taskList) {
         taskList.addTask(this.task);
-        // fileStore.saveToFile(taskList.getTaskStore());
     }
 }
