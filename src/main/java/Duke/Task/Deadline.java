@@ -6,11 +6,21 @@ import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Represents a Deadline Task.
+ */
 public class Deadline extends Task{
     protected String by;
     protected LocalDate date;
-    // need to fix null pointer where description is empty
-    public Deadline(String description, String by) throws NullPointerException {
+
+
+    /**
+     * Create a Deadline task with a date as deadline.
+     *
+     * @param description Description of Task.
+     * @param by Date as deadline of Task.
+     */
+    public Deadline(String description, String by) {
         super(description);
         this.by = by;
         List<String> dateFormats = Arrays.asList("yyyy-MM-dd","dd-MM-yyyy", "dd/MM/yyyy", "dd:MM:yyyy");
@@ -21,9 +31,6 @@ public class Deadline extends Task{
                     formatToParse = DateTimeFormatter.ofPattern(dateFormats.get(i));
                     this.date = LocalDate.parse(by, formatToParse);
                     break;
-                } catch (NullPointerException e) {
-                    throw e;
-                    // System.out.println("Wrong date format");
                 } catch (Exception wrongFormat) {
                     // resolve issue about not catch DateTimeException
                     if (i == dateFormats.size()) {
@@ -34,6 +41,12 @@ public class Deadline extends Task{
             }
     }
 
+
+    /**
+     * Returns formatted String representation of Deadline task.
+     *
+     * @return String representation of Deadline task.
+     */
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + this.date.format(DateTimeFormatter.ofPattern("MMM d yyyy"))  + ")";
