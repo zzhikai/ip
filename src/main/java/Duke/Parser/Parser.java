@@ -1,9 +1,9 @@
 package Duke.Parser;
 
-import Duke.Exception.*;
-import Duke.Task.*;
 import Duke.Command.*;
-import Duke.TaskList.TaskList;
+import Duke.Exception.DukeException;
+import Duke.Exception.InvalidCommandException;
+import Duke.Task.Task;
 
 public class Parser {
     // Parser to return the action to do maybe the command to do
@@ -37,6 +37,8 @@ public class Parser {
                 return new UnmarkCommand(inputBody);
             case "delete":
                 return new DeleteCommand(inputBody);
+            case "find":
+                return new FindCommand(inputBody);
             default:
             throw new InvalidCommandException("OOPS!!! I'm sorry, but i don't know what that means :-(");
         }

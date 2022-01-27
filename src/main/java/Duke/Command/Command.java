@@ -3,7 +3,7 @@ import Duke.Exception.DukeException;
 import Duke.TaskList.TaskList;
 
 public abstract class Command {
-    private String input;
+    protected String input;
 
     public Command(String input) {
         this.input = input;
