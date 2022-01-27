@@ -88,7 +88,7 @@ public class TaskList {
 
 
     /**
-     * Return size of ArrayList within the TaskList.
+     * Return size of A ja/rrayList within the TaskList.
      *
      * @return Integer representation of size of ArrayList inside TaskList.
      */
@@ -97,9 +97,9 @@ public class TaskList {
     }
 
     /**
-     * Prints out all Task of the ArrayList if not empty,
+     * Prints out all task of the ArrayList if not empty,
      *
-     * @throws DukeException If existing ArrayList in TaskLst is empty.
+     * @throws DukeException If existing ArrayList in TaskList is empty.
      */
     public void printOutTaskList() throws DukeException {
         if (taskStore.size() == 0) {

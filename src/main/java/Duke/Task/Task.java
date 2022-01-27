@@ -20,7 +20,7 @@ public class Task implements Serializable {
     }
 
     /**
-     * Gets status icon of task.
+     * Returns status icon of task.
      *
      * @return the string representation of status icon of the task.
      */

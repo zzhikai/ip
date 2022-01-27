@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Represents a Deadline Task.
+ * Represents a deadline task.
  */
 public class Deadline extends Task{
     protected String by;
@@ -17,8 +17,8 @@ public class Deadline extends Task{
     /**
      * Create a Deadline task with a date as deadline.
      *
-     * @param description Description of Task.
-     * @param by Date as deadline of Task.
+     * @param description Description of task.
+     * @param by Date as deadline of task.
      */
     public Deadline(String description, String by) {
         super(description);
@@ -43,9 +43,9 @@ public class Deadline extends Task{
 
 
     /**
-     * Returns formatted String representation of Deadline task.
+     * Returns formatted string representation of deadline task.
      *
-     * @return String representation of Deadline task.
+     * @return String representation of deadline task.
      */
     @Override
     public String toString() {
