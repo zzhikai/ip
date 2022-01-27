@@ -1,9 +1,8 @@
 package Duke.Parser;
 
-import Duke.Exception.*;
-import Duke.Task.*;
 import Duke.Command.*;
-import Duke.TaskList.TaskList;
+import Duke.Exception.DukeException;
+import Duke.Exception.InvalidCommandException;
 
 public class Parser {
     // Parser to return the action to do maybe the command to do
@@ -21,23 +20,22 @@ public class Parser {
         String inputCommand = inputStrings[0];
         // has command and body
         String inputBody = inputStrings.length == 2 ? inputStrings[1] : "";
-        Task task;
         switch (inputCommand) {
-            case "list":
-                return new ListCommand("");
-            case "deadline":
-                return new DeadlineCommand(inputBody);
-            case "todo":
-                return new TodoCommand(inputBody);
-            case "event":
-                return new EventCommand(inputBody);
-            case "mark":
-                return new MarkCommand(inputBody);
-            case "unmark":
-                return new UnmarkCommand(inputBody);
-            case "delete":
-                return new DeleteCommand(inputBody);
-            default:
+        case "list":
+            return new ListCommand("");
+        case "deadline":
+            return new DeadlineCommand(inputBody);
+        case "todo":
+            return new TodoCommand(inputBody);
+        case "event":
+            return new EventCommand(inputBody);
+        case "mark":
+            return new MarkCommand(inputBody);
+        case "unmark":
+            return new UnmarkCommand(inputBody);
+        case "delete":
+            return new DeleteCommand(inputBody);
+        default:
             throw new InvalidCommandException("OOPS!!! I'm sorry, but i don't know what that means :-(");
         }
     }
