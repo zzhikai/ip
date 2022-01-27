@@ -5,20 +5,39 @@ import Duke.Exception.*;
 import java.util.ArrayList;
 
 
+/**
+ * Represents a List of Task.
+ */
 public class TaskList {
 
-    static String path = "src/main/java/duke.txt";
     private ArrayList<Task> taskStore;
 
+    /**
+     * Creates TaskList with an ArrayList of Task stored.
+     *
+     * @param taskDatabase ArrayList of Task stored.
+     */
     // read from file first then pass to Duke.TaskList.Duke.TaskList to finalised in a sense and work with list from here
     public TaskList(ArrayList<Task> taskDatabase) {
         this.taskStore = taskDatabase;
     }
 
+    /**
+     * Returns ArrayList of Task stored.
+     *
+     * @return ArrayList of Task stored within TaskList.
+     */
     public ArrayList<Task> getTaskStore() {
         return taskStore;
     }
 
+
+    /**
+     * Mark task within the TaskList as done.
+     *
+     * @param taskIndex Position of task on the TaskList to be marked as done.
+     * @throws DukeException If no task at taskIndex.
+     */
     public void mark(int taskIndex) throws DukeException {
         checkTaskIndex(taskIndex);
         this.taskStore.get(taskIndex).markAsDone();
@@ -26,6 +45,12 @@ public class TaskList {
         System.out.println(taskStore.get(taskIndex).toString());
     }
 
+    /**
+     * Mark task within the TaskList as not done.
+     *
+     * @param taskIndex Position of task on the TaskList to be marked as not done.
+     * @throws DukeException If no task at taskIndex.
+     */
     public void unMark(int taskIndex) throws DukeException {
         checkTaskIndex(taskIndex);
         this.taskStore.get(taskIndex).unMark();
@@ -34,6 +59,12 @@ public class TaskList {
         // need to catch error when taskIndex is invalid;
     }
 
+    /**
+     * Delete task within the TaskList.
+     *
+     * @param taskIndex Position of task on the TaskList to delete.
+     * @throws DukeException If no task at taskIndex.
+     */
     public void deleteTask(int taskIndex) throws DukeException {
         checkTaskIndex(taskIndex);
         System.out.println("Noted. I've removed this task:");
@@ -42,14 +73,34 @@ public class TaskList {
         System.out.println(String.format("Now you have %d tasks in the list", this.getSizeOfTaskList()));
     }
 
+
+    /**
+     * Checks if position of task given is valid.
+     *
+     * @param taskIndex Position of task on the TaskList to check.
+     * @throws DukeException If no task at taskIndex.
+     */
     public void checkTaskIndex(int taskIndex) throws DukeException {
         if (taskIndex >= this.getSizeOfTaskList() || taskIndex < 0) {
             throw new DukeException("No task at this number, please try again");
         }
     }
+
+
+    /**
+     * Return size of ArrayList within the TaskList.
+     *
+     * @return Integer representation of size of ArrayList inside TaskList.
+     */
     public int getSizeOfTaskList() {
         return taskStore.size();
     }
+
+    /**
+     * Prints out all Task of the ArrayList if not empty,
+     *
+     * @throws DukeException If existing ArrayList in TaskLst is empty.
+     */
     public void printOutTaskList() throws DukeException {
         if (taskStore.size() == 0) {
             throw new EmptyListException("List is empty, please add task");
@@ -59,18 +110,15 @@ public class TaskList {
         }
     }
 
+    /**
+     * Adds new task into ArrayList inside TaskList.
+     *
+     * @param newTask Task that will be added to the ArrayList of tasks.
+     */
     public void addTask(Task newTask) {
         this.taskStore.add(newTask);
         System.out.println("Got it. I've added this task:");
         System.out.println("  " + newTask.toString());
         System.out.println(String.format("Now you have %d tasks in the list", this.getSizeOfTaskList()));
     }
-
-    public static void main(String[] args) throws DukeException {
-        // Array of Duke.Task.Duke.Task instead, each task has its state and behaviour
-        ArrayList<Task> inputStore = new ArrayList<Task>();
-        String input;
-        int index = 0;
-    }
-
 }
