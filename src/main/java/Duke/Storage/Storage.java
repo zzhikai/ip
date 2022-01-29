@@ -13,6 +13,10 @@ public class Storage {
         filePath = path;
     }
 
+
+    //@@author sam-reused
+    //Reused from https://samderlust.com/dev-blog/java/write-read-arraylist-object-file-java
+    // with minor modification
     public static ArrayList<Task> readFile() {
         // reading data file into current list
         try {
@@ -26,6 +30,9 @@ public class Storage {
         }
     }
 
+    //@@author sam-reused
+    //Reused from https://samderlust.com/dev-blog/java/write-read-arraylist-object-file-java
+    // with minor modification
     public static void saveToFile(ArrayList<Task> inputTaskList) {
         try {
             FileOutputStream writeDatabaseInput = new FileOutputStream(filePath);
