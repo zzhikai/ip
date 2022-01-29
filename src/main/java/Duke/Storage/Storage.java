@@ -14,7 +14,7 @@ public class Storage {
     }
 
 
-    //@@author sam-reused
+    //@@author zzhikai-reused
     //Reused from https://samderlust.com/dev-blog/java/write-read-arraylist-object-file-java
     // with minor modification
     public static ArrayList<Task> readFile() {
@@ -30,7 +30,7 @@ public class Storage {
         }
     }
 
-    //@@author sam-reused
+    //@@author zzhikai-reused
     //Reused from https://samderlust.com/dev-blog/java/write-read-arraylist-object-file-java
     // with minor modification
     public static void saveToFile(ArrayList<Task> inputTaskList) {
