@@ -1,22 +1,21 @@
 package Duke;
-
-
 import Duke.Command.Command;
 import Duke.Exception.DukeException;
 import Duke.Parser.Parser;
+
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ParserTest {
     @Test
-    public void dummyTest(){
+    public void dummyTest() {
 
         assertEquals(2, 2);
     }
 
     @Test
-    public void ParserTestWithDeadlineEmptyDescription() {
+    public void parserTestWithDeadlineEmptyDescription() {
         String input = "deadline";
         Parser inputParser = new Parser(input);
         Command currCommand = null;
@@ -27,7 +26,7 @@ public class ParserTest {
         }
     }
     @Test
-    public void ParserTestWithInvalidCommand() {
+    public void parserTestWithInvalidCommand() {
         String input = "gibberish";
         Parser inputParser = new Parser(input);
         Command currCommand = null;

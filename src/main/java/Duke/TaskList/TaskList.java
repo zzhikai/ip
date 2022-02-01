@@ -1,8 +1,12 @@
 package Duke.TaskList;
 
+import Duke.Exception.DukeException;
+import Duke.Exception.EmptyListException;
 import Duke.Task.Task;
-import Duke.Exception.*;
+
 import java.util.ArrayList;
+
+
 
 
 /**
@@ -13,11 +17,13 @@ public class TaskList {
     private ArrayList<Task> taskStore;
 
     /**
-     * Creates TaskList with an ArrayList of Task stored.
+     * Creates TaskList with
+     * an ArrayList of Task stored.
      *
      * @param taskDatabase ArrayList of Task stored.
      */
-    // read from file first then pass to Duke.TaskList.Duke.TaskList to finalised in a sense and work with list from here
+    // read from file first then pass to Duke.TaskList.Duke.TaskList
+    // to finalised in a sense and work with list from here
     public TaskList(ArrayList<Task> taskDatabase) {
         this.taskStore = taskDatabase;
     }

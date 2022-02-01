@@ -30,7 +30,7 @@ public class Parser {
      */
     public Command parse() throws DukeException {
         // split command away
-        String[] inputStrings = this.userInputLine.trim().split(" ",2);
+        String[] inputStrings = this.userInputLine.trim().split(" ", 2);
         String inputCommand = inputStrings[0];
         // has command and body
         String inputBody = inputStrings.length == 2 ? inputStrings[1] : "";
