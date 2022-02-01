@@ -1,18 +1,21 @@
 package Duke;
 
-import Duke.Command.*;
+import Duke.Command.Command;
+import Duke.Exception.DukeException;
 import Duke.Parser.Parser;
 import Duke.Storage.Storage;
-import Duke.Task.*;
-import Duke.Exception.*;
+import Duke.Task.Task;
 import Duke.TaskList.TaskList;
 import Duke.Ui.Ui;
 
-import java.io.*;
 import java.util.Scanner;
 import java.util.ArrayList;
+
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 
 
 public class Duke {
@@ -20,6 +23,7 @@ public class Duke {
     private static Ui ui;
     private Ui uiDuke;
     private TaskList taskDataList;
+
     public Duke() {
         ArrayList<Task> inputDatabase = (ArrayList<Task>) Storage.readFile();
         taskDataList = new TaskList(inputDatabase);
@@ -32,26 +36,6 @@ public class Duke {
             System.out.println(s.nextLine());
         }
 
-    }
-
-    public void run() {
-        ui = new Ui();
-        ui.hello();
-        Scanner chatInput = new Scanner(System.in);
-        String input = chatInput.nextLine();
-        while (!input.equals("bye")) {
-            try {
-                Parser inputParser = new Parser(input);
-                Command currCommand = inputParser.parse();
-                currCommand.callCommand(this.taskDataList);
-            } catch (DukeException e) {
-                ui.showError(e);
-            }
-            input = chatInput.nextLine();
-        }
-        Storage.saveToFile(this.taskDataList.getTaskStore());
-        ui.bye();
-        chatInput.close();
     }
 
     public static void main(String[] args) throws DukeException {
@@ -79,6 +63,26 @@ public class Duke {
     public static int endIndexOfTask(String input) {
         int index = input.indexOf("/");
         return index;
+    }
+
+    public void run() {
+        ui = new Ui();
+        ui.hello();
+        Scanner chatInput = new Scanner(System.in);
+        String input = chatInput.nextLine();
+        while (!input.equals("bye")) {
+            try {
+                Parser inputParser = new Parser(input);
+                Command currCommand = inputParser.parse();
+                currCommand.callCommand(this.taskDataList);
+            } catch (DukeException e) {
+                ui.showError(e);
+            }
+            input = chatInput.nextLine();
+        }
+        Storage.saveToFile(this.taskDataList.getTaskStore());
+        ui.bye();
+        chatInput.close();
     }
 
 }
