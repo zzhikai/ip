@@ -28,7 +28,7 @@ public class Storage {
         try {
             FileInputStream databaseInputStream = new FileInputStream(filePath);
             ObjectInputStream readDataBaseStream = new ObjectInputStream(databaseInputStream);
-            ArrayList inputDatabase = (ArrayList<Task>) readDataBaseStream.readObject();
+            ArrayList<Task> inputDatabase = (ArrayList<Task>) readDataBaseStream.readObject();
             readDataBaseStream.close();
             return inputDatabase;
         } catch (IOException | ClassNotFoundException e) {

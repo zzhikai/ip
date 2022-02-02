@@ -43,9 +43,10 @@ public class DeadlineCommand extends Command {
      * Executes DeadlineCommand to add deadline task to a TaskList.
      *
      * @param taskList TaskList for command to add task to.
+     * @return
      */
     @Override
-    public void callCommand(TaskList taskList) {
-        taskList.addTask(this.task);
+    public String callCommand(TaskList taskList) {
+        return taskList.addTask(this.task);
     }
 }

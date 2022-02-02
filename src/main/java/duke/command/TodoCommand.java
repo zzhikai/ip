@@ -32,10 +32,11 @@ public class TodoCommand extends Command {
      * Executes TodoCommand to add todo task to a TaskList.
      *
      * @param taskList TaskList for command to add Task to.
+     * @return
      */
     @Override
-    public void callCommand(TaskList taskList) {
+    public String callCommand(TaskList taskList) {
         this.taskListCopy = taskList;
-        this.taskListCopy.addTask(this.task);
+        return this.taskListCopy.addTask(this.task);
     }
 }

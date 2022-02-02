@@ -42,13 +42,17 @@ public class TaskList {
      * Mark task within the TaskList as done.
      *
      * @param taskIndex Position of task on the TaskList to be marked as done.
+     *
+     * @return String statement when task is marked.
+     *
      * @throws DukeException If no task at taskIndex.
      */
-    public void mark(int taskIndex) throws DukeException {
+    public String mark(int taskIndex) throws DukeException {
         checkTaskIndex(taskIndex);
         this.taskStore.get(taskIndex).markAsDone();
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(taskStore.get(taskIndex).toString());
+        // System.out.println("Nice! I've marked this task as done:");
+        // System.out.println(taskStore.get(taskIndex).toString());
+        return ("Nice! I've marked this task as done:\n" + taskStore.get(taskIndex).toString());
     }
 
     /**
@@ -56,12 +60,14 @@ public class TaskList {
      *
      * @param taskIndex Position of task on the TaskList to be marked as not done.
      * @throws DukeException If no task at taskIndex.
+     * @return String statement when task is unmarked.
      */
-    public void unMark(int taskIndex) throws DukeException {
+    public String unMark(int taskIndex) throws DukeException {
         checkTaskIndex(taskIndex);
         this.taskStore.get(taskIndex).unMark();
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(taskStore.get(taskIndex).toString());
+//        System.out.println("OK, I've marked this task as not done yet:");
+//        System.out.println(taskStore.get(taskIndex).toString());
+        return ("OK, I've marked this task as not done yet:\n" + taskStore.get(taskIndex).toString());
         // need to catch error when taskIndex is invalid;
     }
 
@@ -71,12 +77,14 @@ public class TaskList {
      * @param taskIndex Position of task on the TaskList to delete.
      * @throws DukeException If no task at taskIndex.
      */
-    public void deleteTask(int taskIndex) throws DukeException {
+    public String deleteTask(int taskIndex) throws DukeException {
         checkTaskIndex(taskIndex);
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(taskStore.get(taskIndex).toString());
+//        System.out.println("Noted. I've removed this task:");
+//        System.out.println(taskStore.get(taskIndex).toString());
         taskStore.remove(taskIndex);
-        System.out.println(String.format("Now you have %d tasks in the list", this.getSizeOfTaskList()));
+//        System.out.println(String.format("Now you have %d tasks in the list", this.getSizeOfTaskList()));
+        return "Noted. I've removed this task:\n" + taskStore.get(taskIndex).toString()
+                + String.format("\nNow you have %d tasks in the list", this.getSizeOfTaskList());
     }
 
 
@@ -107,13 +115,15 @@ public class TaskList {
      *
      * @throws DukeException If existing ArrayList in TaskList is empty.
      */
-    public void printOutTaskList() throws DukeException {
+    public String printOutTaskList() throws DukeException {
         if (taskStore.size() == 0) {
             throw new EmptyListException("List is empty, please add task");
         }
+        String taskListString = "";
         for (int i = 0; i < taskStore.size(); i++) {
-            System.out.println((i + 1) + "." + taskStore.get(i).toString());
+            taskListString = taskListString + ((i + 1) + "." + taskStore.get(i).toString() + "\n");
         }
+        return taskListString;
     }
 
     /**
@@ -121,11 +131,13 @@ public class TaskList {
      *
      * @param newTask Task that will be added to the ArrayList of tasks.
      */
-    public void addTask(Task newTask) {
+    public String addTask(Task newTask) {
         this.taskStore.add(newTask);
-        System.out.println("Got it. I've added this task:");
-        System.out.println("  " + newTask.toString());
-        System.out.println(String.format("Now you have %d tasks in the list", this.getSizeOfTaskList()));
+//        System.out.println("Got it. I've added this task:");
+//        System.out.println("  " + newTask.toString());
+//        System.out.println(String.format("Now you have %d tasks in the list", this.getSizeOfTaskList()));
+        return "Got it. I've added this task:\n  " + newTask.toString()
+                + String.format("\nNow you have %d tasks in the list", this.getSizeOfTaskList());
     }
 
     /**
@@ -134,7 +146,7 @@ public class TaskList {
      * @param searchWord Word to find within task.
      * @throws DukeException If searchWord is empty or tasks with matching words not found.
      */
-    public void findTask(String searchWord) throws DukeException {
+    public String findTask(String searchWord) throws DukeException {
         ArrayList<Task> searchResult = new ArrayList<>();
         if (searchWord.trim().length() == 0) {
             throw new DukeException("Please input word to find");
@@ -150,6 +162,6 @@ public class TaskList {
         }
 
         TaskList searchTaskResult = new TaskList(searchResult);
-        searchTaskResult.printOutTaskList();
+        return searchTaskResult.printOutTaskList();
     }
 }
