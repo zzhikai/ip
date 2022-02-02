@@ -1,4 +1,4 @@
-Hello! I'm Duke.Duke
+Hello! I'm duke.duke
 What can I do for you?
 List is empty, please add task
 Got it. I've added this task:
