@@ -36,9 +36,10 @@ public class EventCommand extends Command {
      * Executes EventCommand to add event task to a TaskList.
      *
      * @param taskList TaskList for command to add Task to.
+     * @return
      */
     @Override
-    public void callCommand(TaskList taskList) {
-        taskList.addTask(this.task);
+    public String callCommand(TaskList taskList) {
+        return taskList.addTask(this.task);
     }
 }

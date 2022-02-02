@@ -37,9 +37,10 @@ public class UnmarkCommand extends Command {
      *
      * @param taskList The TaskList for command act on.
      * @throws DukeException If taskList does not contain the task.
+     * @return
      */
     @Override
-    public void callCommand(TaskList taskList) throws DukeException {
-        taskList.unMark(this.taskIndex);
+    public String callCommand(TaskList taskList) throws DukeException {
+        return taskList.unMark(this.taskIndex);
     }
 }

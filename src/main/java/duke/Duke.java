@@ -8,20 +8,14 @@ import duke.task.Task;
 import duke.tasklist.TaskList;
 import duke.ui.Ui;
 
-import java.util.Scanner;
+import java.io.*;
 import java.util.ArrayList;
-
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
+import java.util.Scanner;
 
 
 public class Duke {
 
     private static Ui ui;
-    private Ui uiDuke;
     private TaskList taskDataList;
 
     public Duke() {
@@ -85,4 +79,14 @@ public class Duke {
         chatInput.close();
     }
 
+    public String getResponse(String input) {
+
+        try {
+            Parser inputParser = new Parser(input);
+            Command currCommand = inputParser.parse();
+            return currCommand.callCommand(this.taskDataList);
+        } catch (DukeException e) {
+            return e.getMessage();
+        }
+    }
 }

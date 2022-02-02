@@ -3,13 +3,12 @@ package duke.ui;
 public class Ui {
     public Ui() { }
 
-    public void hello() {
-        System.out.println("Hello! Welcome, I'm Duke");
-        System.out.println("What can I do for you?");
+    public String hello() {
+        return ("Hello! Welcome, I'm Duke" + "\n" + "What can I do for you?");
     }
 
-    public void bye() {
-        System.out.print("Bye. Hope to see you again soon!");
+    public String bye() {
+        return ("Bye. Hope to see you again soon!");
     }
 
     public void showError(Exception e) {

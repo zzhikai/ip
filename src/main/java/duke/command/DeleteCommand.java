@@ -35,9 +35,10 @@ public class DeleteCommand extends Command {
      *
      * @param taskList TaskList for command to delete task from.
      * @throws DukeException If taskList does not contain task to be deleted.
+     * @return
      */
     @Override
-    public void callCommand(TaskList taskList) throws DukeException {
-        taskList.deleteTask(this.taskIndex);
+    public String callCommand(TaskList taskList) throws DukeException {
+        return taskList.deleteTask(this.taskIndex);
     }
 }

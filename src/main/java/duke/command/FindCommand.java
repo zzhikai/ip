@@ -10,7 +10,7 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void callCommand(TaskList taskList) throws DukeException {
-        taskList.findTask(this.input);
+    public String callCommand(TaskList taskList) throws DukeException {
+        return taskList.findTask(this.input);
     }
 }
