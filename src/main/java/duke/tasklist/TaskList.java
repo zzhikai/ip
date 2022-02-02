@@ -148,9 +148,8 @@ public class TaskList {
         if (searchResult.size() == 0) {
             throw new EmptyListException("No results found!");
         }
-        for (int i = 0; i < searchResult.size(); i++) {
-            System.out.println((i + 1) + "." + searchResult.get(i).toString());
-        }
 
+        TaskList searchTaskResult = new TaskList(searchResult);
+        searchTaskResult.printOutTaskList();
     }
 }
