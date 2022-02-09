@@ -8,7 +8,6 @@ import duke.task.Task;
 import duke.tasklist.TaskList;
 import duke.ui.Ui;
 
-import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -18,48 +17,22 @@ public class Duke {
     private static Ui ui;
     private TaskList taskDataList;
 
+    /** Constructor of Duke Object*/
     public Duke() {
         ArrayList<Task> inputDatabase = (ArrayList<Task>) Storage.readFile();
         taskDataList = new TaskList(inputDatabase);
     }
 
-    private static void printFileContents(String filePath) throws FileNotFoundException {
-        File f = new File(filePath);
-        Scanner s = new Scanner(f);
-        while (s.hasNext()) {
-            System.out.println(s.nextLine());
-        }
-
-    }
-
+    /**
+     * @param args
+     * @throws DukeException
+     */
     public static void main(String[] args) throws DukeException {
         Duke chatBot = new Duke();
         chatBot.run();
     }
 
-    public static void writeDataInputToDisk(ArrayList<Task> inputTaskList) {
-        try {
-            FileOutputStream writeDatabaseInput = new FileOutputStream("src/main/java/TaskDatabase.ser");
-            ObjectOutputStream writeDatabaseStream = new ObjectOutputStream(writeDatabaseInput);
-            writeDatabaseStream.writeObject(inputTaskList);
-            writeDatabaseStream.flush();
-            writeDatabaseStream.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static int indexOfTask(String command) {
-        int index = command.length() + 1;
-        return index;
-    }
-
-    public static int endIndexOfTask(String input) {
-        int index = input.indexOf("/");
-        return index;
-    }
-
-    public void run() {
+    private void run() {
         ui = new Ui();
         ui.hello();
         Scanner chatInput = new Scanner(System.in);
@@ -80,7 +53,6 @@ public class Duke {
     }
 
     public String getResponse(String input) {
-
         try {
             Parser inputParser = new Parser(input);
             Command currCommand = inputParser.parse();
