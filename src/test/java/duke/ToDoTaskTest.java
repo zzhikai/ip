@@ -12,7 +12,6 @@ import duke.task.Todo;
 public class ToDoTaskTest {
     @Test
     public void dummyTest() {
-
         assertEquals(2, 2);
     }
 
