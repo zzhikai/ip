@@ -154,12 +154,6 @@ public class TaskList {
                 .filter(t -> t.toString().contains(searchWord))
                 .collect(Collectors.toCollection(ArrayList::new));
 
-        // searchResult = searchList;
-        /*for (int i = 0; i < taskStore.size(); i++) {
-            if (taskStore.get(i).toString().contains(searchWord)) {
-                searchResult.add(taskStore.get(i));
-            }
-        }*/
         if (searchList.size() == 0) {
             throw new EmptyListException("No results found!");
         }
