@@ -22,8 +22,6 @@ public class TaskList {
      *
      * @param taskDatabase ArrayList of Task stored.
      */
-    // read from file first then pass to Duke.TaskList.Duke.TaskList
-    // to finalised in a sense and work with list from here
     public TaskList(ArrayList<Task> taskDatabase) {
         this.taskStore = taskDatabase;
     }
@@ -55,8 +53,6 @@ public class TaskList {
         assert this.taskStore.get(taskIndex).getStatusIcon() != "X"
                 : "No Task at this Index to unmark Assertion error";
         this.taskStore.get(taskIndex).markAsDone();
-        // System.out.println("Nice! I've marked this task as done:");
-        // System.out.println(taskStore.get(taskIndex).toString());
         return ("Nice! I've marked this task as done:\n" + taskStore.get(taskIndex).toString());
     }
 
@@ -139,9 +135,6 @@ public class TaskList {
      */
     public String addTask(Task newTask) {
         this.taskStore.add(newTask);
-//        System.out.println("Got it. I've added this task:");
-//        System.out.println("  " + newTask.toString());
-//        System.out.println(String.format("Now you have %d tasks in the list", this.getSizeOfTaskList()));
         return "Got it. I've added this task:\n  " + newTask.toString()
                 + String.format("\nNow you have %d tasks in the list", this.getSizeOfTaskList());
     }

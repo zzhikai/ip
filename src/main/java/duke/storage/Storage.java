@@ -20,6 +20,9 @@ public class Storage {
     }
 
 
+    /**
+     * @return
+     */
     //@@author zzhikai-reused
     //Reused from https://samderlust.com/dev-blog/java/write-read-arraylist-object-file-java
     // with minor modification
@@ -36,6 +39,9 @@ public class Storage {
         }
     }
 
+    /**
+     * @param inputTaskList
+     */
     //@@author zzhikai-reused
     //Reused from https://samderlust.com/dev-blog/java/write-read-arraylist-object-file-java
     // with minor modification
