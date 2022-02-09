@@ -26,6 +26,9 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/GongYoo.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/GongYoo.png"));
 
+    /**
+     * Initialise ChatBot with greetings in the dialog box.
+     */
     @FXML
     public void initialize() {
         String hello = ("Hello! Welcome, I'm Duke" + "\n" + "What can I do for you?");

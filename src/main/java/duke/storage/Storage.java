@@ -1,14 +1,15 @@
 package duke.storage;
 
-import duke.task.Task;
-
-import java.util.ArrayList;
-
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+
+import duke.task.Task;
+
+
 
 
 public class Storage {
@@ -26,6 +27,7 @@ public class Storage {
     //@@author zzhikai-reused
     //Reused from https://samderlust.com/dev-blog/java/write-read-arraylist-object-file-java
     // with minor modification
+    @SuppressWarnings("unchecked")
     public static ArrayList<Task> readFile() {
         // reading data file into current list
         try {

@@ -1,13 +1,10 @@
 package duke.tasklist;
 
+import java.util.ArrayList;
+
 import duke.exception.DukeException;
 import duke.exception.EmptyListException;
 import duke.task.Task;
-
-import java.util.ArrayList;
-
-
-
 
 /**
  * Represents a List of Task.
@@ -60,8 +57,8 @@ public class TaskList {
      * Mark task within the TaskList as not done.
      *
      * @param taskIndex Position of task on the TaskList to be marked as not done.
-     * @throws DukeException If no task at taskIndex.
      * @return String statement when task is unmarked.
+     * @throws DukeException If no task at taskIndex.
      */
     public String unMark(int taskIndex) throws DukeException {
         // prevents user from unmarking already unmarked task;

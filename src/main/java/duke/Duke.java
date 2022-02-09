@@ -1,5 +1,8 @@
 package duke;
 
+import java.util.ArrayList;
+import java.util.Scanner;
+
 import duke.command.Command;
 import duke.exception.DukeException;
 import duke.parser.Parser;
@@ -7,9 +10,6 @@ import duke.storage.Storage;
 import duke.task.Task;
 import duke.tasklist.TaskList;
 import duke.ui.Ui;
-
-import java.util.ArrayList;
-import java.util.Scanner;
 
 
 public class Duke {

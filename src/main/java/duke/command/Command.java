@@ -21,8 +21,8 @@ public abstract class Command {
      * Execute command on a TaskList.
      *
      * @param taskList The TaskList for command act on.
+     * @return String Nothing.
      * @throws DukeException If command not recognized.
-     * @return String
      */
     public String callCommand(TaskList taskList) throws DukeException {
         throw new DukeException("Command not supported");
