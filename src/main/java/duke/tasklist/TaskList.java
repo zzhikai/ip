@@ -49,6 +49,9 @@ public class TaskList {
      */
     public String mark(int taskIndex) throws DukeException {
         checkTaskIndex(taskIndex);
+        if (this.taskStore.get(taskIndex).getStatusIcon() == "X") {
+            throw new DukeException("Task already Marked");
+        }
         assert this.taskStore.get(taskIndex).getStatusIcon() != "X"
                 : "No Task at this Index to unmark Assertion error";
         this.taskStore.get(taskIndex).markAsDone();
@@ -66,6 +69,9 @@ public class TaskList {
      */
     public String unMark(int taskIndex) throws DukeException {
         // prevents user from unmarking already unmarked task;
+        if (this.taskStore.get(taskIndex).getStatusIcon() == " ") {
+            throw new DukeException("Task already unmarked");
+        }
         assert this.taskStore.get(taskIndex).getStatusIcon() != " "
                 : "No Task at this Index to unmark Assertion error";
         checkTaskIndex(taskIndex);
