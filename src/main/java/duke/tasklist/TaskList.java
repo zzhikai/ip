@@ -1,6 +1,7 @@
 package duke.tasklist;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 import duke.exception.DukeException;
 import duke.exception.EmptyListException;
@@ -148,16 +149,22 @@ public class TaskList {
             throw new DukeException("Please input word to find");
         }
 
-        for (int i = 0; i < taskStore.size(); i++) {
+        ArrayList<Task> searchList = taskStore
+                .stream()
+                .filter(t -> t.toString().contains(searchWord))
+                .collect(Collectors.toCollection(ArrayList::new));
+
+        // searchResult = searchList;
+        /*for (int i = 0; i < taskStore.size(); i++) {
             if (taskStore.get(i).toString().contains(searchWord)) {
                 searchResult.add(taskStore.get(i));
             }
-        }
-        if (searchResult.size() == 0) {
+        }*/
+        if (searchList.size() == 0) {
             throw new EmptyListException("No results found!");
         }
 
-        TaskList searchTaskResult = new TaskList(searchResult);
+        TaskList searchTaskResult = new TaskList(searchList);
         return searchTaskResult.printOutTaskList();
     }
 }
