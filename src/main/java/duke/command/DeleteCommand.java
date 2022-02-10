@@ -26,7 +26,7 @@ public class DeleteCommand extends Command {
             int taskNumber = Integer.valueOf(description);
             taskIndex = taskNumber - 1;
         } catch (NumberFormatException e) {
-            throw new DukeException("Please input number after unmark");
+            throw new DukeException("Please input number after delete");
         }
     }
 

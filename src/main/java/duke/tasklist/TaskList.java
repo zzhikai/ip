@@ -82,8 +82,9 @@ public class TaskList {
      */
     public String deleteTask(int taskIndex) throws DukeException {
         checkTaskIndex(taskIndex);
-        taskStore.remove(taskIndex);
-        return "Noted. I've removed this task:\n" + taskStore.get(taskIndex).toString()
+        String deletedTask = this.taskStore.get(taskIndex).toString();
+        this.taskStore.remove(taskIndex);
+        return "Noted. I've removed this task:\n" + deletedTask
                 + String.format("\nNow you have %d tasks in the list", this.getSizeOfTaskList());
     }
 
@@ -102,7 +103,7 @@ public class TaskList {
 
 
     /**
-     * Return size of A ja/rrayList within the TaskList.
+     * Return size of ArrayList within the TaskList.
      *
      * @return Integer representation of size of ArrayList inside TaskList.
      */
@@ -160,5 +161,20 @@ public class TaskList {
 
         TaskList searchTaskResult = new TaskList(searchList);
         return searchTaskResult.printOutTaskList();
+    }
+
+    /**
+     * update Task and print out to the chatbot
+     * "Got it. I've edited this task: " + task.toString() [same method]
+     *
+     *
+     * @param TaskNumber
+     * @param newDescription
+     * @return
+     */
+    public String updateTask(int TaskNumber, String newDescription) {
+        // attempt in making a update name task first, separate and reconstruct string
+        // print result etc.
+        return newDescription;
     }
 }

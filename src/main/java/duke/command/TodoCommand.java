@@ -36,7 +36,7 @@ public class TodoCommand extends Command {
      */
     @Override
     public String callCommand(TaskList taskList) {
-        this.taskListCopy = taskList;
-        return this.taskListCopy.addTask(this.task);
+        // this.taskListCopy = taskList;
+        return taskList.addTask(this.task);
     }
 }
