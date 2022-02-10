@@ -10,6 +10,7 @@ import duke.command.ListCommand;
 import duke.command.MarkCommand;
 import duke.command.TodoCommand;
 import duke.command.UnmarkCommand;
+import duke.command.UpdateCommand;
 import duke.exception.DukeException;
 import duke.exception.InvalidCommandException;
 
@@ -62,6 +63,9 @@ public class Parser {
             return new FindCommand(inputBody);
         case "bye":
             return new ByeCommand(inputBody);
+        case "update":
+            // input Body should be update + taskNumber + new description
+            return new UpdateCommand(inputBody);
         default:
             throw new InvalidCommandException("OOPS!!! I'm sorry, but i don't know what that means :-(");
         }

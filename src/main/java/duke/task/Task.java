@@ -38,6 +38,12 @@ public class Task implements Serializable {
         this.isDone = false;
     }
 
+    /**
+     * @param newDescription Updates Task description to newDescription.
+     */
+    public void updateDescription(String newDescription) {
+        this.description = newDescription;
+    }
 
     /**
      * Returns formatted string representation of task.
