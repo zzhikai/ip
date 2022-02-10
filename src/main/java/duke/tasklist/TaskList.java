@@ -166,15 +166,19 @@ public class TaskList {
     /**
      * update Task and print out to the chatbot
      * "Got it. I've edited this task: " + task.toString() [same method]
-     *
-     *
-     * @param TaskNumber
-     * @param newDescription
-     * @return
+     * Taskstore.get returns a task
+     * to check the task we need to use the toString method?
+     * or check using the first box [T] [E] [D]
+     * Task.description to update it, maybe have a update Description method inside individual task
+     * taskstore.get(i).updateDescription(String new Description)
+     * @param taskIndex .
+     * @param newDescription .
+     * @return String .
+     * @throws DukeException If no task at taskIndex.
      */
-    public String updateTask(int TaskNumber, String newDescription) {
-        // attempt in making a update name task first, separate and reconstruct string
-        // print result etc.
-        return newDescription;
+    public String updateTask(int taskIndex, String newDescription) throws DukeException {
+        checkTaskIndex(taskIndex);
+        this.taskStore.get(taskIndex).updateDescription(newDescription);
+        return "Got it. I've updated the description for this task: " + this.taskStore.get(taskIndex).toString();
     }
 }
