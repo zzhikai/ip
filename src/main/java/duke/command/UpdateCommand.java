@@ -31,7 +31,7 @@ public class UpdateCommand extends Command {
             int taskNumber = Integer.valueOf(taskPosition);
             this.taskIndex = taskNumber - 1;
         } catch (NumberFormatException e) {
-            throw new DukeException("Please input number after mark");
+            throw new DukeException("Please input number after update");
         }
     }
 

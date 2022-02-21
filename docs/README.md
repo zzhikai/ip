@@ -1,29 +1,71 @@
 # User Guide
 
+## Quick Start
+
+1. Ensure you have Java `11` installed on your computer.
+2. Download latest `duke.jar` from [here.](https://github.com/zzhikai)
+3. Copy the jar file into an empty folder.
+4. Open a command/terminal window in that folder.
+5. Run the command `java -jar duke.jar`.
+6. Type any command in the command box, and press Enter to execute it.
+7.  Refer to the [Features](#Features) below for details of each command.
+
+
 ## Features 
 
-### Feature-ABC
+#### `List` - Displays a list of all task.
+    Format: `list`
 
-Description of the feature.
+#### `todo` - Add a Todo Task to list.
+    Format: `todo DESCRIPTION`
+- Provide Task `DESCRIPTION`. The description cannot be empty.
+- List will be updated with todo Task with description given.
 
-### Feature-XYZ
+#### `event` - Add an Event Task to list.
+    Format: `event DESCRIPTION /at DATE`
+- Provide Task `DESCRIPTION`. The description cannot be empty.
+- `DATE` refers to the date the event is on.
 
-Description of the feature.
+#### `deadline` - Add a Deadline Task to list.
+    Format: `event DESCRIPTION /by DATE`
+- Provide Task `DESCRIPTION`. The description cannot be empty.
+- `DATE` refers to the date the event is on, formats: "yyyy-MM-dd", "dd-MM-yyyy", "dd/MM/yyyy", "dd:MM:yyyy".
 
-## Usage
+#### `mark` - Marks a Task in the list as done.
+    Format: `mark INDEX`
+- Marks Task at the specified `INDEX` as done. The index refers to the index number shown in the displayed list. The index must be a positive integer 1, 2, 3, ...
+  
+    Example:
+    ```
+    Nice! I've marked this task as done:
+    [T][X] fun
+    ```
 
-### `Keyword` - Describe action
+#### `unmark` - Marks a Task in the list as not done.
+    Format: `mark INDEX`
+- Marks Task at the specified `INDEX` as done. The index refers to the index number shown in the displayed list. The index must be a positive integer 1, 2, 3, ...
+    
+    Example:
+    
+    ```
+    OK, I've marked this task as not done yet:
+    [T][ ] fun
+    ```
 
-Describe the action and its outcome.
+#### `delete` - Delete a Task from the list.
+    Format: `delete INDEX`
+- Delete Task at the specified `INDEX` The index refers to the index number shown in the displayed list. The index must be a positive integer 1, 2, 3, ...
 
-Example of usage: 
+#### `find` - Find all the Tasks in the list containing the keyword.
+    Format: `find KEYWORD`
+- A list of task that contains the `KEYWORD` will be displayed. Keyword cannot be empty.
 
-`keyword (optional arguments)`
+#### `update` - Update the description of the Task in the list.
+    Format: `update INDEX DESCRIPTION`
+- Update the `DESCRIPTION` of Task at the specified `INDEX`. The index refers to the index number shown in the displayed list. The index must be a positive integer 1, 2, 3, ...
+- The description cannot be empty.
 
-Expected outcome:
 
-Description of the outcome.
+#### `bye` - Exits duke
+    Format: `bye`
 
-```
-expected output
-```
