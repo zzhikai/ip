@@ -7,7 +7,14 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
  */
@@ -17,6 +24,8 @@ public class MainWindow extends AnchorPane {
     @FXML
     private VBox dialogContainer;
     @FXML
+    private Pane backgroundDisplay;
+    @FXML
     private TextField userInput;
     @FXML
     private Button sendButton;
@@ -24,7 +33,8 @@ public class MainWindow extends AnchorPane {
     private Duke duke;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/GongYoo.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/GongYoo.png"));
+    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/iu.png"));
+    private Image lofi = new Image(this.getClass().getResourceAsStream("/images/lofi.png"));
 
     /**
      * Initialise ChatBot with greetings in the dialog box.
@@ -36,6 +46,16 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
+    private void setBackground() {
+        BackgroundImage lofiBackgroundImage = new BackgroundImage(
+                lofi,
+                BackgroundRepeat.REPEAT,
+                BackgroundRepeat.REPEAT,
+                BackgroundPosition.DEFAULT,
+                new BackgroundSize(1.0, 1.0, false, false, true, true));
+        Background mainBackground = new Background(lofiBackgroundImage);
+        backgroundDisplay.setBackground(new Background(lofiBackgroundImage));
+    }
     public void setDuke(Duke d) {
         duke = d;
     }
