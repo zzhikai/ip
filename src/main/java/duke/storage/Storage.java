@@ -1,5 +1,6 @@
 package duke.storage;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -14,7 +15,7 @@ import duke.task.Task;
 
 public class Storage {
 
-    private static String filePath = "src/main/java/TaskDatabase.ser";
+    private static String filePath = "db/TaskDatabase.ser";
 
     public Storage(String path) {
         filePath = path;
@@ -48,6 +49,11 @@ public class Storage {
     //Reused from https://samderlust.com/dev-blog/java/write-read-arraylist-object-file-java
     // with minor modification
     public static void saveToFile(ArrayList<Task> inputTaskList) {
+        File directory = new File("db");
+        if (!directory.exists()) {
+            directory.mkdir();
+        }
+
         try {
             FileOutputStream writeDatabaseInput = new FileOutputStream(filePath);
             ObjectOutputStream writeDatabaseStream = new ObjectOutputStream(writeDatabaseInput);
