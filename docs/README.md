@@ -3,7 +3,7 @@
 ## Quick Start
 
 1. Ensure you have Java `11` installed on your computer.
-2. Download latest `duke.jar` from [here.](https://github.com/zzhikai)
+2. Download latest `duke.jar` from [here.](https://github.com/zzhikai/ip/releases/tag/A-Release)
 3. Copy the jar file into an empty folder.
 4. Open a command/terminal window in that folder.
 5. Run the command `java -jar duke.jar`.
