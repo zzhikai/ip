@@ -1,5 +1,7 @@
 package duke.command;
 
+import java.time.DateTimeException;
+
 import duke.exception.DukeException;
 import duke.exception.EmptyByException;
 import duke.task.Event;
@@ -29,7 +31,13 @@ public class EventCommand extends Command {
         if (eventMarker == -1) {
             throw new EmptyByException("Please remember to include event date with /at");
         }
-        this.task = new Event(eventInfo[0], eventInfo[1]);
+        try {
+            this.task = new Event(eventInfo[0], eventInfo[1]);
+        } catch (DateTimeException d) {
+            throw new DukeException("invalid date input, use yyyy-MM-dd or dd-MM-yyyy or dd/MM/yyyy or dd:MM:yyyy");
+        } catch (Exception e) {
+            throw new DukeException("Please include correct deadline time");
+        }
     }
 
     /**
