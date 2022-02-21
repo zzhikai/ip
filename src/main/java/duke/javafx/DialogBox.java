@@ -48,7 +48,6 @@ public class DialogBox extends HBox {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        // Image image = new Image(getClass().getResourceAsStream("ep17y6d3uf251.png"));
         dialog.setText(text);
         dialog.setBackground(new Background(new BackgroundFill(Color.BEIGE, new CornerRadii(5.0), Insets.EMPTY)));
         displayPicture.setImage(img);
