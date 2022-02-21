@@ -18,21 +18,25 @@
 
 #### `todo` - Add a Todo Task to list.
     Format: `todo DESCRIPTION`
+
 - Provide Task `DESCRIPTION`. The description cannot be empty.
 - List will be updated with todo Task with description given.
 
 #### `event` - Add an Event Task to list.
     Format: `event DESCRIPTION /at DATE`
+
 - Provide Task `DESCRIPTION`. The description cannot be empty.
 - `DATE` refers to the date the event is on.
 
 #### `deadline` - Add a Deadline Task to list.
     Format: `event DESCRIPTION /by DATE`
+
 - Provide Task `DESCRIPTION`. The description cannot be empty.
 - `DATE` refers to the date the event is on, formats: "yyyy-MM-dd", "dd-MM-yyyy", "dd/MM/yyyy", "dd:MM:yyyy".
 
 #### `mark` - Marks a Task in the list as done.
     Format: `mark INDEX`
+
 - Marks Task at the specified `INDEX` as done. The index refers to the index number shown in the displayed list. The index must be a positive integer 1, 2, 3, ...
   
     Example:
@@ -43,6 +47,7 @@
 
 #### `unmark` - Marks a Task in the list as not done.
     Format: `mark INDEX`
+
 - Marks Task at the specified `INDEX` as done. The index refers to the index number shown in the displayed list. The index must be a positive integer 1, 2, 3, ...
     
     Example:
@@ -54,14 +59,17 @@
 
 #### `delete` - Delete a Task from the list.
     Format: `delete INDEX`
+
 - Delete Task at the specified `INDEX` The index refers to the index number shown in the displayed list. The index must be a positive integer 1, 2, 3, ...
 
 #### `find` - Find all the Tasks in the list containing the keyword.
     Format: `find KEYWORD`
+
 - A list of task that contains the `KEYWORD` will be displayed. Keyword cannot be empty.
 
 #### `update` - Update the description of the Task in the list.
     Format: `update INDEX DESCRIPTION`
+
 - Update the `DESCRIPTION` of Task at the specified `INDEX`. The index refers to the index number shown in the displayed list. The index must be a positive integer 1, 2, 3, ...
 - The description cannot be empty.
 
