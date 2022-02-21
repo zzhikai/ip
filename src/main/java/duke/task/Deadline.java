@@ -15,7 +15,7 @@ public class Deadline extends Task {
 
 
     /**
-     * Create a Deadline task with a date as deadline.
+     * Creates a Deadline task with a date as deadline.
      *
      * @param description Description of task.
      * @param by Date as deadline of task.
