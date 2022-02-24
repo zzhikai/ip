@@ -32,7 +32,7 @@ public class TodoCommand extends Command {
      * Executes TodoCommand to add todo task to a TaskList.
      *
      * @param taskList TaskList for command to add Task to.
-     * @return
+     * @return a String when command is called.
      */
     @Override
     public String callCommand(TaskList taskList) {

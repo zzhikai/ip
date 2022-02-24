@@ -38,9 +38,7 @@ public class TaskList {
      * Mark task within the TaskList as done.
      *
      * @param taskIndex Position of task on the TaskList to be marked as done.
-     *
      * @return String statement when task is marked.
-     *
      * @throws DukeException If no task at taskIndex.
      */
     public String mark(int taskIndex) throws DukeException {
@@ -79,6 +77,7 @@ public class TaskList {
      * Delete task within the TaskList.
      *
      * @param taskIndex Position of task on the TaskList to delete.
+     * @return a String including the deleted task and the number of task in the list now.
      * @throws DukeException If no task at taskIndex.
      */
     public String deleteTask(int taskIndex) throws DukeException {
@@ -113,8 +112,9 @@ public class TaskList {
     }
 
     /**
-     * Prints out all task of the ArrayList if not empty,
+     * Prints out all task of the ArrayList if not empty.
      *
+     * @return a String representing the task in the list.
      * @throws DukeException If existing ArrayList in TaskList is empty.
      */
     public String printOutTaskList() throws DukeException {
@@ -132,6 +132,7 @@ public class TaskList {
      * Adds new task into ArrayList inside TaskList.
      *
      * @param newTask Task that will be added to the ArrayList of tasks.
+     * @return a String of the added task as well as the number of tasks in the list.
      */
     public String addTask(Task newTask) {
         this.taskStore.add(newTask);
@@ -143,6 +144,7 @@ public class TaskList {
      * Prints list of tasks which contains matching words.
      *
      * @param searchWord Word to find within task.
+     * @return a String representation of the list of tasks matching the searchWord.
      * @throws DukeException If searchWord is empty or tasks with matching words not found.
      */
     public String findTask(String searchWord) throws DukeException {
@@ -165,16 +167,11 @@ public class TaskList {
     }
 
     /**
-     * update Task and print out to the chatbot
-     * "Got it. I've edited this task: " + task.toString() [same method]
-     * Taskstore.get returns a task
-     * to check the task we need to use the toString method?
-     * or check using the first box [T] [E] [D]
-     * Task.description to update it, maybe have a update Description method inside individual task
-     * taskstore.get(i).updateDescription(String new Description)
-     * @param taskIndex .
-     * @param newDescription .
-     * @return String .
+     * Updates the specified task in the list with a new description.
+     *
+     * @param taskIndex Position of task on the TaskList to update.
+     * @param newDescription The new description of the task.
+     * @return a String including the task with the updated description.
      * @throws DukeException If no task at taskIndex.
      */
     public String updateTask(int taskIndex, String newDescription) throws DukeException {

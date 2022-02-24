@@ -22,7 +22,7 @@ public class ListCommand extends Command {
      *
      * @param taskList The TaskList for command act on.
      * @throws DukeException If taskList is empty.
-     * @return
+     * @return a String when command is called.
      */
     @Override
     public String callCommand(TaskList taskList) throws DukeException {

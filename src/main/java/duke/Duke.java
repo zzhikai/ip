@@ -24,8 +24,9 @@ public class Duke {
     }
 
     /**
-     * @param args
-     * @throws DukeException
+     * Main method.
+     * @param args The command line arguments.
+     * @throws DukeException Throws DukeException when input causes exception to the chatBot.
      */
     public static void main(String[] args) throws DukeException {
         Duke chatBot = new Duke();
