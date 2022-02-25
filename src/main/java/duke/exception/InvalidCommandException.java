@@ -5,10 +5,9 @@ package duke.exception;
  */
 public class InvalidCommandException extends DukeException {
     /**
-     * @param errorMessage
+     * @param errorMessage The String that will be printed when Exception is thrown.
      */
     public InvalidCommandException(String errorMessage) {
-
         super(errorMessage);
     }
 }

@@ -23,7 +23,7 @@ public class Storage {
 
 
     /**
-     * @return
+     * @return ArrayList of Task from the an existing file, else return an empty ArrayList.
      */
     //@@author zzhikai-reused
     //Reused from https://samderlust.com/dev-blog/java/write-read-arraylist-object-file-java
@@ -43,7 +43,7 @@ public class Storage {
     }
 
     /**
-     * @param inputTaskList
+     * @param inputTaskList The new ArrayList of task to be saved.
      */
     //@@author zzhikai-reused
     //Reused from https://samderlust.com/dev-blog/java/write-read-arraylist-object-file-java
@@ -53,7 +53,6 @@ public class Storage {
         if (!directory.exists()) {
             directory.mkdir();
         }
-
         try {
             FileOutputStream writeDatabaseInput = new FileOutputStream(filePath);
             ObjectOutputStream writeDatabaseStream = new ObjectOutputStream(writeDatabaseInput);

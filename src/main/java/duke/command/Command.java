@@ -9,7 +9,7 @@ public abstract class Command {
     protected String input;
 
     /**
-     * Create a command.
+     * Creates a command.
      *
      * @param input Input from user.
      */
@@ -18,7 +18,7 @@ public abstract class Command {
     }
 
     /**
-     * Execute command on a TaskList.
+     * Executes command on a TaskList.
      *
      * @param taskList The TaskList for command act on.
      * @return String Nothing.

@@ -35,7 +35,7 @@ public class MarkCommand extends Command {
      *
      * @param taskList The TaskList for command act on.
      * @throws DukeException If taskList does not contain the task.
-     * @return
+     * @return a String when command is called.
      */
     @Override
     public String callCommand(TaskList taskList) throws DukeException {

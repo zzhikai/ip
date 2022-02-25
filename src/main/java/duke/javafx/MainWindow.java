@@ -29,7 +29,6 @@ public class MainWindow extends AnchorPane {
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/GongYoo.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/iu.png"));
-    private Image lofi = new Image(this.getClass().getResourceAsStream("/images/lofi.png"));
 
     /**
      * Initialise ChatBot with greetings in the dialog box.
@@ -63,6 +62,5 @@ public class MainWindow extends AnchorPane {
             exitLag.setOnFinished(event -> Platform.exit());
             exitLag.play();
         }
-
     }
 }
