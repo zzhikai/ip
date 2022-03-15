@@ -13,7 +13,6 @@ import duke.tasklist.TaskList;
  */
 public class EventCommand extends Command {
     private Task task;
-    // private TaskList taskDataList;
 
     /**
      * Creates a EventCommand with event task.

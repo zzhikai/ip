@@ -11,7 +11,6 @@ import duke.tasklist.TaskList;
  */
 public class TodoCommand extends Command {
     private Task task;
-    private TaskList taskListCopy;
 
     /**
      * Creates a TodoCommand with todo task.
@@ -36,7 +35,6 @@ public class TodoCommand extends Command {
      */
     @Override
     public String callCommand(TaskList taskList) {
-        // this.taskListCopy = taskList;
         return taskList.addTask(this.task);
     }
 }

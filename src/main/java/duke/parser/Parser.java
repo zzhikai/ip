@@ -18,9 +18,7 @@ import duke.exception.InvalidCommandException;
  * Represents the parser for program to parse input.
  */
 public class Parser {
-    // Parser to return the action to do maybe the command to do
-    // input : String
-    // from that input we will split the words into command / description / datetime
+
     private String userInputLine;
 
     /**
@@ -39,10 +37,8 @@ public class Parser {
      * @throws DukeException If userInputLine invalid for the command.
      */
     public Command parse() throws DukeException {
-        // split command away
         String[] inputStrings = this.userInputLine.trim().split(" ", 2);
         String inputCommand = inputStrings[0];
-        // has command and body
         String inputBody = inputStrings.length == 2 ? inputStrings[1] : "";
         switch (inputCommand) {
         case "list":
@@ -64,7 +60,6 @@ public class Parser {
         case "bye":
             return new ByeCommand(inputBody);
         case "update":
-            // input Body should be update + taskNumber + new description
             return new UpdateCommand(inputBody);
         default:
             throw new InvalidCommandException("OOPS!!! I'm sorry, but i don't know what that means :-(");

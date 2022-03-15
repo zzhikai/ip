@@ -18,7 +18,6 @@ public class UpdateCommand extends Command {
      */
     public UpdateCommand(String updateInfo) throws DukeException {
         super(updateInfo);
-        //updateInfo: taskNumber + newDescription
         String[] updateInfoStrings = updateInfo.trim().split(" ", 2);
         String taskPosition = updateInfoStrings[0];
         String taskDescription = updateInfoStrings.length == 2 ? updateInfoStrings[1] : "";

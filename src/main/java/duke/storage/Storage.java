@@ -30,7 +30,6 @@ public class Storage {
     // with minor modification
     @SuppressWarnings("unchecked")
     public static ArrayList<Task> readFile() {
-        // reading data file into current list
         try {
             FileInputStream databaseInputStream = new FileInputStream(filePath);
             ObjectInputStream readDataBaseStream = new ObjectInputStream(databaseInputStream);
