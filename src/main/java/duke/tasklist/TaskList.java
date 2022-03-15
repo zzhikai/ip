@@ -61,7 +61,6 @@ public class TaskList {
      */
     public String unMark(int taskIndex) throws DukeException {
         checkTaskIndex(taskIndex);
-        // prevents user from unmarking already unmarked task;
         if (this.taskStore.get(taskIndex).getStatusIcon() == " ") {
             throw new DukeException("Task already unmarked");
         }
@@ -70,7 +69,6 @@ public class TaskList {
         checkTaskIndex(taskIndex);
         this.taskStore.get(taskIndex).unMark();
         return ("OK, I've marked this task as not done yet:\n" + taskStore.get(taskIndex).toString());
-        // need to catch error when taskIndex is invalid;
     }
 
     /**

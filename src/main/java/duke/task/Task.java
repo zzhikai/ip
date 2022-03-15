@@ -10,7 +10,7 @@ public class Task implements Serializable {
     protected boolean isDone;
 
     /**
-     * Create a task with description and task not done.
+     * Creates a task with description and task not done.
      *
      * @param description Description of the task.
      */
@@ -25,7 +25,7 @@ public class Task implements Serializable {
      * @return the string representation of status icon of the task.
      */
     public String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done task with X
+        return (isDone ? "X" : " ");
     }
 
     /** Change task to done */

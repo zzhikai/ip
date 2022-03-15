@@ -14,7 +14,7 @@ public class Event extends Task {
     protected LocalDate date;
 
     /**
-     * Create a event task.
+     * Creates a event task.
      *
      * @param description Description of the event task.
      * @param at The String representation of the date of the event task.
@@ -31,7 +31,6 @@ public class Event extends Task {
                 this.date = LocalDate.parse(at, formatToParse);
                 break;
             } catch (Exception wrongFormat) {
-                // resolve issue about not catch DateTimeException
                 if (i == dateFormats.size()) {
                     throw new DateTimeException("Date invalid");
                 }

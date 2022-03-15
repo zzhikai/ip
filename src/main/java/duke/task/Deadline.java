@@ -32,7 +32,6 @@ public class Deadline extends Task {
                 this.date = LocalDate.parse(by, formatToParse);
                 break;
             } catch (Exception wrongFormat) {
-                // resolve issue about not catch DateTimeException
                 if (i == dateFormats.size()) {
                     throw new DateTimeException("Date invalid");
                 }

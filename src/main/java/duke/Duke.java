@@ -24,7 +24,7 @@ public class Duke {
     }
 
     /**
-     * Main method.
+     * Initialises and starts the chatBot Duke.
      * @param args The command line arguments.
      * @throws DukeException Throws DukeException when input causes exception to the chatBot.
      */
